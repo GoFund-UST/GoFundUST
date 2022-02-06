@@ -10,6 +10,8 @@ This project is using:
 - [Next.js](https://github.com/vercel/next.js)
 - [Chakra UI](https://chakra-ui.com)
 
+## Smart Contracts
+are viewable here - [GoFund-UST-contracts](https://github.com/PFC-Validator/GoFund-UST-contracts)
 ### `npm run dev`
 
 Runs the app in the development mode.
