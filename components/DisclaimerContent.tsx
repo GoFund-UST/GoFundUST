@@ -1,12 +1,12 @@
-import React from "react";
-import { Box, Container, VStack } from "@chakra-ui/react";
+import React from 'react';
+import { Box, Container, VStack } from '@chakra-ui/react';
 
 const DisclaimerContent = () => {
   return (
-    <Box pt={["10", null, "16", "28"]} pb={["16", null, null, "20"]}>
+    <Box pt={['10', null, '16', '28']} pb={['16', null, null, '20']}>
       <Container
         maxW="container.xl"
-        px={["8", null, "12"]}
+        px={['8', null, '12']}
         color="white"
         className="prose"
       >
@@ -20,14 +20,14 @@ const DisclaimerContent = () => {
                 relevant technologies are being provided on an as-is basis,
                 without representation, warranty, insurance or indemnity, and
                 that all participation is solely at your own sole risk. You
-                should carefully review and understand the{" "}
+                should carefully review and understand the{' '}
                 <a
-                  href="https://github.com/PFC-Validator/tbd/src/contract.rs"
+                  href="https://github.com/PFC-Validator/GoFund-UST-contracts"
                   target="_blank"
                   rel="noreferrer"
                 >
                  GoFund US(T) smart contract code
-                </a>{" "}
+                </a>{' '}
                 and all relevant technologies before participating in the GoFund
                 drop transactions. As noted below, in the event of security
                 threats, such code is subject to change after launch by action
@@ -35,15 +35,15 @@ const DisclaimerContent = () => {
                 the specific smart contracts on Terra mainnet (columbus-5)
                 blockchain system (the “<strong>Terra</strong>”) that are in
                 control of your tokens—the addresses of these smart contracts on
-                Terra can be found through the GoFund changelog{" "}
+                Terra can be found through the GoFund changelog{' '}
                 <a
-                  href="https://github.com/PFC-Validtor/TBD/tree/master/columbus-5/1.0.0"
+                  href="https://github.com/PFC-Validator/GoFund-UST-contracts"
                   target="_blank"
                   rel="noreferrer"
                 >
                   here
                 </a>
-                , as it may be updated from time to time.
+                , as it may be updated from time to time. Please note each GoFund will have a separate smart contract addresses by design.
               </i>
             </p>
             <p>
@@ -51,7 +51,7 @@ const DisclaimerContent = () => {
               tokens into GoFund-related smart contracts, you are committing
               such tokens to the sole and absolute control of those smart
               contracts as operated on Terra until such time as you withdraw
-              such tokens from such smart contracts.{" "}
+              such tokens from such smart contracts.{' '}
               <strong>
                 <u>
                   Once your tokens are “locked “in the GoFund smart contract
@@ -60,7 +60,7 @@ const DisclaimerContent = () => {
                   will lose all powers over and benefits with respect to the
                   locked tokens,
                 </u>
-              </strong>{" "}
+              </strong>{' '}
               other than the specific uses that the GoFund smart contract
               systems will make of the locked tokens during the lockup period.
               For further detail regarding when deposited tokens become
@@ -68,7 +68,7 @@ const DisclaimerContent = () => {
               user-selected period pursuant to the GoFund process, as
               well as details regarding the specific uses that will be made of
               the locked-up tokens by the GoFund smart contract system while
-              the tokens are locked, see{" "}
+              the tokens are locked, see{' '}
               <a
                 href="https://example.com/tbd"
                 target="_blank"
@@ -82,7 +82,7 @@ const DisclaimerContent = () => {
               <u>
                 Irreversibility of Transactions and Lack of Remedies and
                 Insurance for Damages.
-              </u>{" "}
+              </u>{' '}
               Transactions on Terra are, under normal conditions, irreversible.
               Any tokens you deposit into GoFund-related smart contracts are
               subject to potential risk of permanent disablement, impairment,
@@ -90,13 +90,13 @@ const DisclaimerContent = () => {
               malfunctions of the relevant smart contracts or Terra itself, and
               no remedy will be available from any person due to any damages you
               may suffer in connection with your participation in the GoFund
-              or use of any of the relevant technologies.{" "}
+              or use of any of the relevant technologies.{' '}
             </p>
             <p>
               <u>
                 No Investment or Lending; No Contract Rights; Absence of
                 Counterparties.
-              </u>{" "}
+              </u>{' '}
               The GoFund transactions are not intended to be an investment,
               a capital-raising transaction for an enterprise, a sale of your
               tokens to any person or group of persons or a purchase of GoFund
@@ -121,7 +121,7 @@ const DisclaimerContent = () => {
               creators of the GoFund smart contract system, Terra validators,
               any nation-state or any other person) available to compensate you
               for any such losses or other adverse circumstances relating to the
-              GoFund drop transactions.{" "}
+              GoFund drop transactions.{' '}
             </p>
             <p>
               <u>Technical Risks; Independent Due Diligence Required.</u> The
@@ -146,27 +146,27 @@ const DisclaimerContent = () => {
               any three of which may (by signing their respective private keys
               to the same transaction and broadcasting that transaction to Terra
               validators) instruct Terra validators to perform Multisig
-              operations.{" "}
+              operations.{' '}
               <strong>
                 <u>
                   Assuming Terra is operating in the ordinary course, it is
                   possible for the Multisig key holders, through the Multisig,
                   to change which smart contracts govern your locked tokens from
-                  the{" "}
+                  the{' '}
                   <a
                     href="https://github.com/link_to_safe"
                     target="_blank"
                     rel="noreferrer"
                   >
                   Apollo Safe page
-                  </a>{" "}
+                  </a>{' '}
                   to any arbitrary smart contract code selected by three or more
                   of the Multisig key holders.
                 </u>
-              </strong>{" "}
+              </strong>{' '}
               This discretion of the Multisig key holders constitutes a material
               risk, and could enable your tokens to be misappropriated by the
-              Multisig key holders if at least three of them collude.{" "}
+              Multisig key holders if at least three of them collude.{' '}
               <strong>
                 <u>
                   Due to the limitations of existing multisignature smart
@@ -187,8 +187,6 @@ const DisclaimerContent = () => {
               authority to provide any legal, financial, accounting, investment
               or other advice or services.
             </p>
-
-
 
           </VStack>
         </VStack>
