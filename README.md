@@ -1,5 +1,7 @@
 # Go Fund US(T)
-The Astroport Lockdrop UI is a web frontend used to interact with the Astroport lockdrop contracts. It is intended to be used with the [Terra Station Extension](https://terra.money/extension) plugin for Chromium browsers.
+The Go Fund US(T) is a web frontend used to interact with 
+the Go Fund US(T) suite of contracts. 
+It is intended to be used with the [Terra Station Extension](https://terra.money/extension) plugin for Chromium browsers.
 
 ## Development
 
