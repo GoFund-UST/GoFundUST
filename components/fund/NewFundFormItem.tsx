@@ -9,7 +9,7 @@ type Props = {
   amount: string;
 } & BoxProps;
 
-const WithdrawFormItem: FC<Props> = ({ token, amount, ...props }) => {
+const NewFundFormItem: FC<Props> = ({ token, amount, ...props }) => {
   const { getSymbol } = useTokenInfo();
 
   return (
@@ -32,4 +32,4 @@ const WithdrawFormItem: FC<Props> = ({ token, amount, ...props }) => {
   );
 };
 
-export default WithdrawFormItem;
+export default NewFundFormItem;

@@ -13,7 +13,7 @@ import FormSummary from "components/common/FormSummary";
 import FormLoading from "components/common/FormLoading";
 import FormSuccess from "components/common/FormSuccess";
 import FormConfirm from "components/common/FormConfirm";
-import WithdrawFormInitial from "components/auction/withdraw/WithdrawFormInitial";
+import NewFundFormInitial from "components/fund/NewFundFormInitial";
 
 type FormValues = {
   token: {
@@ -22,7 +22,7 @@ type FormValues = {
   };
 };
 
-const WithdrawForm: FC = () => {
+const NewFundForm: FC = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const router = useRouter();
   const methods = useForm<FormValues>({
@@ -45,20 +45,20 @@ const WithdrawForm: FC = () => {
   const { fee, txStep, submit } = state;
 
   const handleSuccessClose = () => {
-    router.push("/active-phase");
+    router.push("/");
   };
 
   useEffect(() => {
-    if (txStep == TxStep.Broadcasting) {
+    if (txStep === TxStep.Broadcasting) {
       setShowConfirm(false);
     }
-  }, [txStep]);
+  },        [txStep]);
 
-  if (txStep == TxStep.Broadcasting || txStep == TxStep.Posting) {
+  if (txStep === TxStep.Broadcasting || txStep === TxStep.Posting) {
     return <FormLoading txHash={state.txHash} />;
   }
 
-  if (txStep == TxStep.Success) {
+  if (txStep === TxStep.Success) {
     return (
       <FormSuccess
         contentComponent={
@@ -72,7 +72,7 @@ const WithdrawForm: FC = () => {
     );
   }
 
-  if (txStep == TxStep.Failed) {
+  if (txStep === TxStep.Failed) {
     return (
       <FormError
         content={state.error}
@@ -86,7 +86,7 @@ const WithdrawForm: FC = () => {
     <FormProvider {...methods}>
       <chakra.form onSubmit={methods.handleSubmit(submit)} width="full">
         {!showConfirm && (
-          <WithdrawFormInitial
+          <NewFundFormInitial
             token={token}
             state={state}
             onClick={() => setShowConfirm(true)}
@@ -110,4 +110,4 @@ const WithdrawForm: FC = () => {
   );
 };
 
-export default WithdrawForm;
+export default NewFundForm;

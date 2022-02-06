@@ -1,18 +1,18 @@
 import React, { FC } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 
-import WithdrawForm from "components/auction/withdraw/WithdrawForm";
+import NewFundForm from "components/fund/NewFundForm";
 
-const Withdraw: FC = () => {
+const NewFund: FC = () => {
   return (
     <Box m="0 auto" pt="12">
       <Flex gridGap="8">
         <Box w="container.sm">
-          <WithdrawForm />
+          <NewFundForm />
         </Box>
       </Flex>
     </Box>
   );
 };
 
-export default Withdraw;
+export default NewFund;

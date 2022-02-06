@@ -51,11 +51,11 @@ export const AstroAppProvider: FC<Props> = ({ children, data }) => {
 
   const pairs = useMemo(() => {
     return data[name].pairs;
-  }, [name, data]);
+  },                    [name, data]);
 
   const tokens = useMemo(() => {
     return data[name].tokens;
-  }, [name, data]);
+  },                     [name, data]);
 
   const phase1StartDate = useMemo(() => {
     if (lockdropConfig == null) {
@@ -65,7 +65,7 @@ export const AstroAppProvider: FC<Props> = ({ children, data }) => {
     const timestamp = lockdropConfig.init_timestamp * 1000;
 
     return dayjs(timestamp);
-  }, [lockdropConfig]);
+  },                              [lockdropConfig]);
 
   const phase1EndDate = useMemo(() => {
     if (lockdropConfig == null || phase1StartDate == null) {
@@ -75,7 +75,7 @@ export const AstroAppProvider: FC<Props> = ({ children, data }) => {
     return phase1StartDate
       .add(lockdropConfig.deposit_window, "second")
       .add(lockdropConfig.withdrawal_window, "second");
-  }, [lockdropConfig, phase1StartDate]);
+  },                            [lockdropConfig, phase1StartDate]);
 
   const phase2StartDate = useMemo(() => {
     if (auctionConfig == null) {
@@ -85,7 +85,7 @@ export const AstroAppProvider: FC<Props> = ({ children, data }) => {
     const timestamp = auctionConfig.init_timestamp * 1000;
 
     return dayjs(timestamp);
-  }, [auctionConfig]);
+  },                              [auctionConfig]);
 
   const phase2EndDate = useMemo(() => {
     if (auctionConfig == null || phase2StartDate == null) {
@@ -95,7 +95,7 @@ export const AstroAppProvider: FC<Props> = ({ children, data }) => {
     return phase2StartDate
       .add(auctionConfig.deposit_window, "second")
       .add(auctionConfig.withdrawal_window, "second");
-  }, [auctionConfig, phase2StartDate]);
+  },                            [auctionConfig, phase2StartDate]);
 
   return (
     <AstroAppContext.Provider

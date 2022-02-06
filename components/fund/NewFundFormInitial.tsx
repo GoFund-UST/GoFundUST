@@ -8,8 +8,8 @@ import { WithdrawState, useUserInfo, useAuctionLogic } from "modules/auction";
 
 import Card from "components/Card";
 import AmountInput from "components/AmountInput";
-import WithdrawFormFooter from "components/auction/withdraw/WithdrawFormFooter";
 import AstroSlider from "components/AstroSlider";
+import NewFundFormFooter from "components/fund/NewFundFormFooter";
 
 type Props = {
   token: {
@@ -20,14 +20,14 @@ type Props = {
   onClick: () => void;
 };
 
-const WithdrawFormInitial: FC<Props> = ({ token, state, onClick }) => {
+const NewFundFormInitial: FC<Props> = ({ token, state, onClick }) => {
   const { control, setValue } = useFormContext();
   const userInfo = useUserInfo();
   const balance = userInfo?.ust_delegated ?? "0";
 
   const { max, realMax } = useAuctionLogic();
 
-  const providedBalance = num(balance).times(ONE_TOKEN).toString();
+  const _providedBalance = num(balance).times(ONE_TOKEN).toString();
 
   const handleChange = (value: number) => {
     setValue("token", {
@@ -80,8 +80,8 @@ const WithdrawFormInitial: FC<Props> = ({ token, state, onClick }) => {
               balanceLabel="Provided"
               limit={+realMax}
               balance={balance}
-              isSingle
-              hideMaxButton
+              isSingle={true}
+              hideMaxButton={true}
             />
           )}
         />
@@ -93,8 +93,8 @@ const WithdrawFormInitial: FC<Props> = ({ token, state, onClick }) => {
             max={num(userInfo?.ust_delegated).div(ONE_TOKEN).toNumber()}
             maxAllowed={max}
             onChange={handleChange}
-            hideButtons
-            hasMaxSystem
+            hideButtons={true}
+            hasMaxSystem={true}
           />
         </Box>
       </Card>
@@ -105,7 +105,7 @@ const WithdrawFormInitial: FC<Props> = ({ token, state, onClick }) => {
         </Card>
       )}
 
-      <WithdrawFormFooter
+      <NewFundFormFooter
         data={state}
         amount={+token.amount}
         onConfirmClick={onClick}
@@ -114,4 +114,4 @@ const WithdrawFormInitial: FC<Props> = ({ token, state, onClick }) => {
   );
 };
 
-export default WithdrawFormInitial;
+export default NewFundFormInitial;

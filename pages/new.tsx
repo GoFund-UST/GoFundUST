@@ -3,19 +3,19 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { Flex } from "@chakra-ui/react";
 
-import Withdraw from "components/pages/Withdraw";
+import NewFund from "components/pages/NewFund";
 
-const WithdrawPage: NextPage = () => {
+const NewFundPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Astroport</title>
+        <title>Create a new GoFund US(T)</title>
       </Head>
       <Flex>
-        <Withdraw />
+        <NewFund />
       </Flex>
     </>
   );
 };
 
-export default WithdrawPage;
+export default NewFundPage;

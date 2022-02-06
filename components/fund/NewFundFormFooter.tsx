@@ -11,7 +11,7 @@ type Props = {
   onConfirmClick: () => void;
 };
 
-const WithdrawFormFooter: FC<Props> = ({ data, amount, onConfirmClick }) => {
+const NewFundFormFooter: FC<Props> = ({ data, amount, onConfirmClick }) => {
   const userInfo = useUserInfo();
   const newUst = num(userInfo?.ust_delegated)
     .div(ONE_TOKEN)
@@ -31,8 +31,8 @@ const WithdrawFormFooter: FC<Props> = ({ data, amount, onConfirmClick }) => {
 
   const confirmButton: ConfirmButton = {
     title: "Withdraw Liquidity",
-    isLoading: data.txStep == TxStep.Estimating,
-    isDisabled: data.txStep != TxStep.Ready,
+    isLoading: data.txStep === TxStep.Estimating,
+    isDisabled: data.txStep !== TxStep.Ready,
     type: "submit",
     onClick: onConfirmClick,
   };
@@ -42,4 +42,4 @@ const WithdrawFormFooter: FC<Props> = ({ data, amount, onConfirmClick }) => {
   );
 };
 
-export default WithdrawFormFooter;
+export default NewFundFormFooter;
