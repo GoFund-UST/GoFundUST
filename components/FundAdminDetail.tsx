@@ -9,24 +9,20 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useAddress } from "@arthuryeti/terra";
 
 import { truncate } from "libs/text";
 
 import Card from "components/Card";
 import CloseModalIcon from "components/icons/CloseModalIcon";
-import SuccessIcon from "components/icons/SuccessIcon";
 import {
   CrowdFundConfigResponse,
   CrowdFundStateResponse,
 } from "modules/crowdfund";
-import FundAmountCard from "components/common/FundAmountCard";
-import {
-  useCrowdFundDepositPool,
-  useCrowdFundDepositPoolBalance,
-} from "modules/crowdfund/hooks/useCrowdDepositPool";
-import * as animationData from "libs/animations/66643-waitwhite.json";
+import { useCrowdFundDepositPool } from "modules/crowdfund/hooks/useCrowdDepositPool";
+import FundAdminAmountCard from "components/common/FundAdminAmountCard";
 import Lottie from "react-lottie";
+import * as animationData from "libs/animations/66643-waitwhite.json";
+import USTIcon from "components/icons/USTIcon";
 
 type Props = {
   detail: CrowdFundConfigResponse;
@@ -37,19 +33,14 @@ type Props = {
 
 const MotionBox = motion(Box);
 
-const FundDetail: FC<Props> = ({
+const FundAdminDetail: FC<Props> = ({
   detail,
   claimable,
   address,
   onCloseClick,
 }) => {
   const truncatedAddress = truncate(address);
-  const userAddress = useAddress();
   const depositPoolDetails = useCrowdFundDepositPool(detail.dp_token);
-  const depositPoolBalance = useCrowdFundDepositPoolBalance(
-    detail.dp_token,
-    userAddress
-  );
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -59,7 +50,7 @@ const FundDetail: FC<Props> = ({
     },
   };
 
-  if (depositPoolDetails.isLoading || depositPoolBalance.isLoading) {
+  if (depositPoolDetails.isLoading) {
     return (
       <Box m="0 auto" pt="12">
         <Flex direction="column" gridGap="8" color="white">
@@ -91,9 +82,9 @@ const FundDetail: FC<Props> = ({
         <Card>
           <Flex justify="space-between" align="center" mb="4">
             <HStack>
-              <SuccessIcon />
-              <Text fontSize="lg" color="green.500">
-                {detail.pool_oneliner}
+              <USTIcon />
+              <Text fontSize="lg" color="yellow.500">
+                {detail.pool_oneliner} (ADMIN)
               </Text>
             </HStack>
             <IconButton
@@ -103,7 +94,7 @@ const FundDetail: FC<Props> = ({
               onClick={onCloseClick}
             />
           </Flex>
-          <Text fontSize="light" color="green.500">
+          <Text fontSize="light" color="yellow.500">
             beneficiary{" "}
             <a
               href={
@@ -117,21 +108,17 @@ const FundDetail: FC<Props> = ({
           </Text>
           <pre>{detail.pool_description}</pre>
 
-          <FundAmountCard
+          <FundAdminAmountCard
             token={detail.dp_token}
             money_market={detail.money_market}
             claimable={claimable}
             description={truncatedAddress}
             token_details={depositPoolDetails.data}
-            account_details={depositPoolBalance.data}
           />
           <HStack>
-            <Button variant="primary" width="256px">
-              Fund
-            </Button>
-            {depositPoolBalance.data.balance > 0 && (
+            {claimable.claimable > 0 && (
               <Button variant="primary" width="256px">
-                Redeem
+                Withdraw earnings
               </Button>
             )}
           </HStack>
@@ -141,4 +128,4 @@ const FundDetail: FC<Props> = ({
   }
 };
 
-export default FundDetail;
+export default FundAdminDetail;

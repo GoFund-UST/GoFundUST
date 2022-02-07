@@ -3,10 +3,7 @@ import { Box, Flex, Text, HStack, VStack } from "@chakra-ui/react";
 import { fromTerraAmount } from "@arthuryeti/terra";
 
 import { CrowdFundStateResponse } from "modules/crowdfund";
-import {
-  CrowdFundDepositPoolBalanceResponse,
-  CrowdFundDepositPoolTokenInfoResponse,
-} from "modules/crowdfund/hooks/useCrowdDepositPool";
+import { CrowdFundDepositPoolTokenInfoResponse } from "modules/crowdfund/hooks/useCrowdDepositPool";
 
 type Props = {
   token: string;
@@ -14,13 +11,11 @@ type Props = {
   claimable: CrowdFundStateResponse;
   description?: string;
   token_details: CrowdFundDepositPoolTokenInfoResponse;
-  account_details: CrowdFundDepositPoolBalanceResponse;
 };
-const FundAmountCard: FC<Props> = ({
+const FundAdminAmountCard: FC<Props> = ({
   description,
   claimable,
   token_details,
-  account_details,
 }) => {
   // const { getIcon, getSymbol } = useTokenInfo();
   const tokenName = token_details.name;
@@ -29,9 +24,7 @@ const FundAmountCard: FC<Props> = ({
 
   const amount = fromTerraAmount(claimable.pool_value, "0,0.00a");
   const earnedAmount = fromTerraAmount(claimable.earned, "0,0.0000a");
-  const accountAmount = fromTerraAmount(account_details.balance, "0,0.00a");
-  // TODO get query balance.
-  // TODO get exchange rate from money market
+  const claimableAmount = fromTerraAmount(claimable.claimable, "0,0.0000a");
   return (
     <Box
       borderWidth="1px"
@@ -62,7 +55,7 @@ const FundAmountCard: FC<Props> = ({
                 Total UST generated {earnedAmount}
               </Text>
               <Text fontSize="xl" color="white">
-                Your amount {accountAmount}
+                Claimable amount {claimableAmount}
               </Text>
             </Box>
           </VStack>
@@ -72,4 +65,4 @@ const FundAmountCard: FC<Props> = ({
   );
 };
 
-export default FundAmountCard;
+export default FundAdminAmountCard;

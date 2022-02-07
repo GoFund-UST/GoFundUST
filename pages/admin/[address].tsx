@@ -3,22 +3,21 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { Flex } from "@chakra-ui/react";
 
-import Fund from "components/pages/Fund";
 import Disclaimer from "components/Disclaimer";
+import FundAdmin from "components/pages/FundAdmin";
 
-const FundPage: NextPage = () => {
+const FundAdminPage: NextPage = () => {
   return (
     <>
       <Head>
         <title>Fund Admin</title>
       </Head>
       <Flex>
-        <Fund  />
-
+        <FundAdmin />
       </Flex>
-        <Disclaimer/>
+      <Disclaimer />
     </>
   );
 };
 
-export default FundPage;
+export default FundAdminPage;
