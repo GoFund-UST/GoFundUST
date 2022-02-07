@@ -48,11 +48,11 @@ const Navbar: FC = () => {
 
             <NavbarLink
               text="Test Page"
-              href="/fund/terra1gmn6gkuu9qx3jzjlkkgswp8w9mcsnayywhs43t"
+              href="/fund/terra1k4fkj4c4ctpknzk8m50khngnhyq4v5yrtr9ldk"
             />
             <NavbarLink
               text="Test Admin Page"
-              href="/admin/terra1gmn6gkuu9qx3jzjlkkgswp8w9mcsnayywhs43t"
+              href="/admin/terra1k4fkj4c4ctpknzk8m50khngnhyq4v5yrtr9ldk"
             />
           </HStack>
         </Box>

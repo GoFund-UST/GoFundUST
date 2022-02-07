@@ -1,17 +1,14 @@
-import React, { FC } from 'react';
-import { Box, Flex, Heading } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import Lottie from 'react-lottie';
+import React, { FC } from "react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import Lottie from "react-lottie";
 
-import * as animationData from 'libs/animations/66643-waitwhite.json';
-// import { useAirdrop } from "modules/airdrop";
+import * as animationData from "libs/animations/66643-waitwhite.json";
 
-import AirdropSuccess from 'components/AirdropSuccess';
-import AirdropFailed from 'components/AirdropFailed';
-import Card from 'components/Card';
-import FundFailed from 'components/FundFailed';
-import { useCrowdFund, useCrowdFundState } from 'modules/crowdfund';
-import FundDetail from 'components/FundDetail';
+import Card from "components/Card";
+import FundFailed from "components/FundFailed";
+import { useCrowdFund, useCrowdFundState } from "modules/crowdfund";
+import FundDetail from "components/FundDetail";
 
 const Fund: FC = () => {
   const router = useRouter();
@@ -24,12 +21,12 @@ const Fund: FC = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
+      preserveAspectRatio: "xMidYMid slice",
     },
   };
 
   const handleClose = () => {
-    router.push('/');
+    router.push("/");
   };
 
   const renderFund = () => {

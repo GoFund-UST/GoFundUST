@@ -49,6 +49,11 @@ const GoFundIntroduction = () => {
               TBD .. create a fund
             </Button>
           </NextLink>
+          <Text>
+            The core principle of this is that it is 100% decentralized. The
+            code is open source, once this code has been audited we plan on
+            throwing away the key, so these will be un-stoppable.
+          </Text>
         </VStack>
         <AspectRatio
           position="relative"
