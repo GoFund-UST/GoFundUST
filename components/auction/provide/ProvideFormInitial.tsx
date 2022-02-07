@@ -11,7 +11,6 @@ import { useFormContext, Controller } from "react-hook-form";
 import { num, fromTerraAmount, useBalance } from "@arthuryeti/terra";
 
 import { ProvideState } from "modules/auction";
-import { useAirdropBalance } from "modules/airdrop";
 import { ONE_TOKEN } from "constants/constants";
 import { useUserInfo } from "modules/lockdrop";
 
@@ -30,25 +29,20 @@ type Props = {
 const ProvideFormInitial: FC<Props> = ({ state, onClick }) => {
   const { control, watch } = useFormContext();
   const userInfo = useUserInfo();
-  const airdropBalance = useAirdropBalance();
+  const airdropBalance = "0";
   const uusdBalance = useBalance("uusd");
   const uusd = watch("uusd");
   const astroLockdrop = watch("astroLockdrop");
-  const astroAirdrop = watch("astroAirdrop");
 
   const totalAstro = useMemo(() => {
     let lockBalance = 0;
-    let airdropBalance = 0;
 
     if (num(astroLockdrop.amount).gt(0)) {
       lockBalance = num(astroLockdrop.amount).toNumber();
     }
-    if (num(astroAirdrop.amount).gt(0)) {
-      airdropBalance = num(astroAirdrop.amount).toNumber();
-    }
 
-    return lockBalance + airdropBalance;
-  }, [astroAirdrop, astroLockdrop]);
+    return lockBalance;
+  }, [astroLockdrop]);
 
   const totalust = useMemo(() => {
     let balance = 0;
@@ -122,12 +116,12 @@ const ProvideFormInitial: FC<Props> = ({ state, onClick }) => {
               render={({ field }) => (
                 <AmountInput
                   {...field}
-                  hideLabel
-                  hideBalanceLabel
+                  hideLabel={true}
+                  hideBalanceLabel={true}
                   balance={lockdropBalance}
                   limit={num(lockdropBalance).div(ONE_TOKEN).toNumber()}
                   balanceLabel="In Lockdrop"
-                  isSingle
+                  isSingle={true}
                 />
               )}
             />
@@ -144,10 +138,10 @@ const ProvideFormInitial: FC<Props> = ({ state, onClick }) => {
                   {...field}
                   balance={airdropBalance}
                   limit={num(airdropBalance).div(ONE_TOKEN).toNumber()}
-                  hideBalanceLabel
-                  hideLabel
+                  hideBalanceLabel={true}
+                  hideLabel={true}
                   balanceLabel="In Airdrop"
-                  isSingle
+                  isSingle={true}
                 />
               )}
             />
@@ -186,7 +180,7 @@ const ProvideFormInitial: FC<Props> = ({ state, onClick }) => {
           render={({ field }) => (
             <AmountInput
               limit={num(uusdBalance).div(ONE_TOKEN).toNumber()}
-              isSingle
+              isSingle={true}
               {...field}
             />
           )}
