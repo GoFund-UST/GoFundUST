@@ -41,6 +41,7 @@ const FundAdminDetail: FC<Props> = ({
 }) => {
   const truncatedAddress = truncate(address);
   const depositPoolDetails = useCrowdFundDepositPool(detail.dp_token);
+
   const defaultOptions = {
     loop: true,
     autoplay: true,

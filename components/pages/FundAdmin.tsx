@@ -9,12 +9,15 @@ import Card from "components/Card";
 import FundFailed from "components/FundFailed";
 import { useCrowdFund, useCrowdFundState } from "modules/crowdfund";
 import FundAdminDetail from "components/FundAdminDetail";
+import { useAddress } from "@arthuryeti/terra";
+import FundAdminDenied from "components/FundAdminDenied";
 
 const FundAdmin: FC = () => {
   const router = useRouter();
   const address = router.query.address as string;
   const { isLoading, data } = useCrowdFund(address);
   const cwState = useCrowdFundState(address);
+  const userAddress = useAddress();
 
   const defaultOptions = {
     loop: true,
@@ -37,14 +40,21 @@ const FundAdmin: FC = () => {
       return <FundFailed onCloseClick={handleClose} />;
     }
 
-    return (
-      <FundAdminDetail
-        detail={data}
-        claimable={cwState.data}
-        address={address}
-        onCloseClick={handleClose}
-      />
-    );
+    if (
+      data.beneficiary !== userAddress &&
+      data.fee_collector !== userAddress
+    ) {
+      return <FundAdminDenied onCloseClick={handleClose} />;
+    } else {
+      return (
+        <FundAdminDetail
+          detail={data}
+          claimable={cwState.data}
+          address={address}
+          onCloseClick={handleClose}
+        />
+      );
+    }
   };
 
   if (isLoading || cwState.isLoading) {
