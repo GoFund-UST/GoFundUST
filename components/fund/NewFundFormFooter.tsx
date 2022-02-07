@@ -20,7 +20,7 @@ const NewFundFormFooter: FC<Props> = ({ data, amount, onConfirmClick }) => {
 
   const cells = [
     {
-      title: "My ASTRO in the pool",
+      title: "My UST in the pool",
       value: fromTerraAmount(userInfo?.astro_delegated, "0,0.00"),
     },
     {

@@ -40,29 +40,33 @@ const NewFundFormInitial: FC<Props> = ({ token, state, onClick }) => {
     <>
       <Box px="6" mb="4">
         <Text fontSize="xl" color="white">
-          Withdraw UST from bootstrapping pool
+          Create a new GoFund US(T) pool
         </Text>
       </Box>
       <Card mb="2">
         <Text fontSize="xs" color="white.500">
           <UnorderedList fontWeight="500">
             <ListItem>
-              Depositing and withdrawing is allowed for the first 5 days of
-              Phase 2.
+              This will create your GoFund. We have no way of controlling who
+              sends you funds.
             </ListItem>
-            <ListItem>Deposits close at the end of Day 5.</ListItem>
+            <ListItem>Once created, we have no way of closing this.</ListItem>
             <ListItem>
-              On Day 6, users can withdraw up to 50% of their deposited UST.
+              We will charge you 5% on your earnings. Depositors will not get a
+              charged a fee (besides from the transaction fee for depositing and
+              withdrawing funds)
             </ListItem>
             <ListItem>
-              On day 7, the final day, the max withdrawable amount decreases
-              linearly, starting at 50% and decreasing to 0% at the end of the
-              phase.
+              We have the ability to put your earnings into your wallet. We do
+              not have the ability to modify the amount provided to you, we
+              might do this if the fund appears dormant.
             </ListItem>
             <ListItem>
               <strong>
-                Be aware: Only 1 withdrawal per position can be made during the
-                last 2 days, after deposits are disabled.
+                Be aware: At the current stage we do not store the links to your
+                GoFund. You are responsible for placing them where your donors
+                will see them. We do have the ability to re-create these links,
+                but do not rely on us being super responsive.
               </strong>
             </ListItem>
           </UnorderedList>
@@ -75,6 +79,7 @@ const NewFundFormInitial: FC<Props> = ({ token, state, onClick }) => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => (
+
             <AmountInput
               {...field}
               balanceLabel="Provided"
@@ -85,18 +90,6 @@ const NewFundFormInitial: FC<Props> = ({ token, state, onClick }) => {
             />
           )}
         />
-
-        <Box mt="8">
-          <AstroSlider
-            value={+token.amount}
-            min={0}
-            max={num(userInfo?.ust_delegated).div(ONE_TOKEN).toNumber()}
-            maxAllowed={max}
-            onChange={handleChange}
-            hideButtons={true}
-            hasMaxSystem={true}
-          />
-        </Box>
       </Card>
 
       {state.error && (
