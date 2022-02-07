@@ -1,0 +1,18 @@
+{
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "arrowParens": "avoid",
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "printWidth": 100,
+    "jsxBracketSameLine": true,
+    "htmlWhitespaceSensitivity": "ignore",
+    "overrides": [
+        {
+            "files": "*.html",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
+}
