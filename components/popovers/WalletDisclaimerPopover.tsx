@@ -8,7 +8,6 @@ import {
   Checkbox,
   VStack,
 } from "@chakra-ui/react";
-import NextLink from "next/link";
 
 import WalletPopover from "components/WalletPopover";
 import TerraIcon from "components/icons/TerraIcon";
@@ -49,16 +48,16 @@ const WalletDisclaimerPopover: FC<Props> = ({ onClick }) => {
       )}
     >
       <Text textStyle="small">
-        By connecting a wallet, you agree to Astroport’s Terms of Service and
+        By connecting a wallet, you agree to GoFund US(T)’s Terms of Service and
         acknowledge that you have read and understand the protocol’s
         disclaimers. Please check the boxes below to confirm your agreement to
         the{" "}
         <Link
-          href="https://astroport.fi/terms-and-conditions"
+          href="https://example.com/terms-and-conditions"
           color="brand.purple"
-          isExternal
+          isExternal={true}
         >
-          Astroport Terms and Conditions
+          GoFund US(T) Terms and Conditions
         </Link>
       </Text>
       <VStack mt="10" spacing="10" align="stretch">
@@ -102,7 +101,7 @@ const WalletDisclaimerPopover: FC<Props> = ({ onClick }) => {
         <VStack spacing="3">
           <Button
             variant="primary"
-            isFullWidth
+            isFullWidth={true}
             onClick={onClick}
             isDisabled={!allChecked}
           >
