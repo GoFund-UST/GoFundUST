@@ -31,7 +31,7 @@ const GoFundIntroduction = () => {
           </Heading>
           <Text fontSize="14px">
             Want to help someone out ? GoFund US(T) allows anyone to create a
-            simple fun that will help them achieve their goals. Unlike typical
+            simple fund that will help them achieve their goals. Unlike typical
             crowd funding platforms, we are capital preserving. This means you
             can deposit your funds here, and the earnings they get (currently
             via Anchor Earn) will be given to the person who set up the fund.
