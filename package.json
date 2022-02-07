@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3050",
     "lint:code": "eslint . --ext .js,.ts,.jsx,.tsx",
     "lint:formatting": "prettier --check \"**/*.(ts|tsx|js|json)\"",
     "format:": "prettier --write \"**/*.(ts|tsx|js|json)\"",
