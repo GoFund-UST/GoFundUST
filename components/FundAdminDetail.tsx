@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback, useState } from "react";
 import {
   Box,
   Flex,
@@ -7,6 +7,8 @@ import {
   IconButton,
   Button,
   Heading,
+  Link,
+  VStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
@@ -23,6 +25,8 @@ import FundAdminAmountCard from "components/common/FundAdminAmountCard";
 import Lottie from "react-lottie";
 import * as animationData from "libs/animations/66643-waitwhite.json";
 import USTIcon from "components/icons/USTIcon";
+import { TxResult, useConnectedWallet } from "@terra-money/wallet-provider";
+import {  MsgExecuteContract } from "@terra-money/terra.js";
 
 type Props = {
   detail: CrowdFundConfigResponse;
@@ -41,6 +45,33 @@ const FundAdminDetail: FC<Props> = ({
 }) => {
   const truncatedAddress = truncate(address);
   const depositPoolDetails = useCrowdFundDepositPool(detail.dp_token);
+  const [txResult, setTxResult] = useState<TxResult | null>(null);
+  const [txError, setTxError] = useState<string | null>(null);
+  const connectedWallet = useConnectedWallet();
+
+  const withdrawEarnings = useCallback(() => {
+    setTxError(null);
+    setTxResult(null);
+
+    let msg = new MsgExecuteContract(connectedWallet.walletAddress, address, {
+      earn: {},
+    });
+
+    // eslint-disable-next-line no-console
+    console.log(msg.toJSON());
+    return connectedWallet
+      .post({ memo: "GoFund US(T)", msgs: [msg] })
+      .then((txResultReturned) => {
+        // eslint-disable-next-line no-console
+        console.log(txResultReturned);
+        setTxResult(txResultReturned);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log("ERROR", error);
+        setTxError(error.toString);
+      });
+  },                                   [connectedWallet, address]);
 
   const defaultOptions = {
     loop: true,
@@ -116,13 +147,35 @@ const FundAdminDetail: FC<Props> = ({
             description={truncatedAddress}
             token_details={depositPoolDetails.data}
           />
-          <HStack>
-            {claimable.claimable > 0 && (
-              <Button variant="primary" width="256px">
-                Withdraw earnings
-              </Button>
+          <VStack>
+            <HStack>
+              {claimable.claimable > 0 && (
+                <Button
+                  variant="primary"
+                  width="256px"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    withdrawEarnings();
+                  }}
+                >
+                  Withdraw earnings
+                </Button>
+              )}
+            </HStack>
+            {connectedWallet && txResult && (
+              <Text>
+                <Link
+                  href={`https://finder.terra.money/${connectedWallet.network.chainID}/tx/${txResult.result.txhash}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  external={true}
+                >
+                  Open Tx Result in Terra Finder
+                </Link>
+              </Text>
             )}
-          </HStack>
+            {txError && <Text color="red.500">{txError}</Text>}
+          </VStack>
         </Card>
       </MotionBox>
     );
