@@ -12,22 +12,23 @@ import {
   FEE_MAX,
   FEE_RESET_EVERY_NUM_BLOCKS,
 } from 'constants/constants';
+import useInstantiateContract from 'modules/auction/hooks/useInstantiateContract';
 import {useContracts} from 'modules/common';
 import {useRouter} from 'next/router';
 import React, {FC, useEffect, useState} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
 
 export type NewFundFormValues = {
-  poolName: string;
-  poolOneLiner: string;
-  poolDescription: string;
+  pool_name: string;
+  pool_oneliner: string;
+  pool_description: string;
   beneficiary: string;
-  dpCodeId: number;
-  feeAmount: string;
-  feeCollector: string;
-  feeMax: number;
-  feeResetEveryNumBlocks: number;
-  moneyMarket: string;
+  dp_code_id: number;
+  fee_amount: string;
+  fee_collector: string;
+  fee_max: number;
+  fee_reset_every_num_blocks: number;
+  money_market: string;
 };
 
 const NewFundForm: FC = () => {
@@ -39,30 +40,25 @@ const NewFundForm: FC = () => {
     mode: 'onBlur',
     defaultValues: {
       beneficiary: address,
-      dpCodeId: DP_CODE_ID,
-      feeAmount: FEE_AMOUNT,
-      feeCollector: FEE_COLLECTOR,
-      feeMax: FEE_MAX,
-      feeResetEveryNumBlocks: FEE_RESET_EVERY_NUM_BLOCKS,
-      moneyMarket,
+      dp_code_id: DP_CODE_ID,
+      fee_amount: FEE_AMOUNT,
+      fee_collector: FEE_COLLECTOR,
+      fee_max: FEE_MAX,
+      fee_reset_every_num_blocks: FEE_RESET_EVERY_NUM_BLOCKS,
+      money_market: moneyMarket,
     },
   });
 
-  const onSubmit = data => {
-    console.log(data);
+  const onSubmit = _ => {
+    state.submit();
   };
 
-  // TODO removed mock
-  const state = {
-    fee: null,
-    txStep: TxStep.Ready,
-    txHash: 'hash',
-    error: null,
-    reset: () => {},
-    submit: () => console.log('submitted to BE'),
-  };
+  // TODO_D dont call this everytime a form value changes
+  let state = useInstantiateContract({
+    newFundFormValues: form.getValues(),
+  });
 
-  const {fee, txStep, submit} = state;
+  const {fee, txStep} = state;
 
   const handleSuccessClose = () => {
     router.push('/');

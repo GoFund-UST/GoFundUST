@@ -18,3 +18,4 @@ export const FEE_AMOUNT = '0.05';
 export const FEE_COLLECTOR = 'terra1yt8xwehw3mngc7h2z09utf32cgpdpe09lke902';
 export const FEE_MAX = 0;
 export const FEE_RESET_EVERY_NUM_BLOCKS = 0;
+export const GO_FUND_UST_CODE_ID = 41159;

@@ -21,12 +21,6 @@ type Props = {
   onClick: () => void;
 };
 
-const commonValidators = {
-  required: 'This is required',
-  maxLength: {value: 64, message: 'Maximum length should be 64'},
-  minLength: {value: 4, message: 'Minimum length should be 4'},
-};
-
 const NewFundFormInitial: FC<Props> = ({state, onClick}) => {
   const {
     register,
@@ -67,19 +61,37 @@ const NewFundFormInitial: FC<Props> = ({state, onClick}) => {
       </Card>
 
       <Card>
-        <FormControl mt={4} isInvalid={!!errors.poolName}>
-          <FormLabel htmlFor="poolName">Fund name</FormLabel>
-          <Input id="poolName" {...register('poolName', commonValidators)} />
-          <FormErrorMessage>{errors?.poolName?.message}</FormErrorMessage>
+        <FormControl mt={4} isInvalid={!!errors.pool_name}>
+          <FormLabel htmlFor="pool_name">Fund name</FormLabel>
+          <Input
+            id="pool_name"
+            {...register('pool_name', {
+              required: 'This is required',
+              maxLength: {value: 4, message: 'Maximum length should be 4'},
+            })}
+          />
+          <FormErrorMessage>{errors?.pool_name?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl mt={4} isInvalid={!!errors.poolOneLiner}>
-          <FormLabel htmlFor="poolOneLiner">Title</FormLabel>
-          <Input id="poolOneLiner" {...register('poolOneLiner', commonValidators)} />
-          <FormErrorMessage>{errors?.poolOneLiner?.message}</FormErrorMessage>
+        <FormControl mt={4} isInvalid={!!errors.pool_oneliner}>
+          <FormLabel htmlFor="pool_oneliner">Title</FormLabel>
+          <Input
+            id="pool_oneliner"
+            {...register('pool_oneliner', {
+              required: 'This is required',
+              maxLength: {value: 64, message: 'Maximum length should be 64'},
+            })}
+          />
+          <FormErrorMessage>{errors?.pool_oneliner?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl mt={4}>
-          <FormLabel htmlFor="poolDescription">Description</FormLabel>
-          <Textarea id="poolDescription" {...register('poolDescription')} />
+        <FormControl mt={4} isInvalid={!!errors.pool_description}>
+          <FormLabel htmlFor="pool_description">Description</FormLabel>
+          <Textarea
+            id="pool_description"
+            {...register('pool_description', {
+              maxLength: {value: 128, message: 'Maximum length should be 128'},
+            })}
+          />
+          <FormErrorMessage>{errors?.pool_description?.message}</FormErrorMessage>
         </FormControl>
       </Card>
 
