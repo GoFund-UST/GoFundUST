@@ -36,6 +36,7 @@ const NewFundForm: FC = () => {
   const address = useAddress();
   const {moneyMarket} = useContracts();
   const form = useForm<NewFundFormValues>({
+    mode: 'onBlur',
     defaultValues: {
       beneficiary: address,
       dpCodeId: DP_CODE_ID,
