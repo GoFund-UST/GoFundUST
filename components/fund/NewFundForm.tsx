@@ -1,58 +1,74 @@
-import React, { FC, useState, useEffect } from "react";
-import { chakra } from "@chakra-ui/react";
-import { useForm, FormProvider } from "react-hook-form";
-import { TxStep } from "@arthuryeti/terra";
-import { useRouter } from "next/router";
+import {TxStep, useAddress} from '@arthuryeti/terra';
+import {chakra} from '@chakra-ui/react';
+import FormConfirm from 'components/common/FormConfirm';
+import FormError from 'components/common/FormError';
+import FormLoading from 'components/common/FormLoading';
+import FormSuccess from 'components/common/FormSuccess';
+import NewFundFormInitial from 'components/fund/NewFundFormInitial';
+import {
+  DP_CODE_ID,
+  FEE_AMOUNT,
+  FEE_COLLECTOR,
+  FEE_MAX,
+  FEE_RESET_EVERY_NUM_BLOCKS,
+} from 'constants/constants';
+import useInstantiateContract from 'modules/auction/hooks/useInstantiateContract';
+import {useContracts} from 'modules/common';
+import {useRouter} from 'next/router';
+import React, {FC, useEffect, useState} from 'react';
+import {FormProvider, useForm} from 'react-hook-form';
 
-import useDebounceValue from "hooks/useDebounceValue";
-import { toAmount } from "libs/parse";
-import { useWithdraw } from "modules/auction";
-
-import FormError from "components/common/FormError";
-import FormSummary from "components/common/FormSummary";
-import FormLoading from "components/common/FormLoading";
-import FormSuccess from "components/common/FormSuccess";
-import FormConfirm from "components/common/FormConfirm";
-import NewFundFormInitial from "components/fund/NewFundFormInitial";
-
-type FormValues = {
-  token: {
-    amount: string;
-    asset: string;
-  };
+export type NewFundFormValues = {
+  pool_name: string;
+  pool_oneliner: string;
+  pool_description: string;
+  beneficiary: string;
+  dp_code_id: number;
+  fee_amount: string;
+  fee_collector: string;
+  fee_max: number;
+  fee_reset_every_num_blocks: number;
+  money_market: string;
 };
 
 const NewFundForm: FC = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const router = useRouter();
-  const methods = useForm<FormValues>({
+  const address = useAddress();
+  const {moneyMarket} = useContracts();
+  const form = useForm<NewFundFormValues>({
+    mode: 'onBlur',
     defaultValues: {
-      token: {
-        amount: "",
-        asset: "uusd",
-      },
+      beneficiary: address,
+      dp_code_id: DP_CODE_ID,
+      fee_amount: FEE_AMOUNT,
+      fee_collector: FEE_COLLECTOR,
+      fee_max: FEE_MAX,
+      fee_reset_every_num_blocks: FEE_RESET_EVERY_NUM_BLOCKS,
+      money_market: moneyMarket,
     },
   });
 
-  const token = methods.watch("token");
+  const onSubmit = _ => {
+    state.submit();
+  };
 
-  const debouncedAmount = useDebounceValue(token.amount, 500);
-
-  const state = useWithdraw({
-    amount: toAmount(debouncedAmount),
+  // TODO_D dont call this everytime a form value changes
+  let state = useInstantiateContract({
+    newFundFormValues: form.getValues(),
   });
 
-  const { fee, txStep, submit } = state;
+  const {fee, txStep} = state;
 
   const handleSuccessClose = () => {
-    router.push("/");
+    router.push('/');
   };
 
   useEffect(() => {
     if (txStep === TxStep.Broadcasting) {
       setShowConfirm(false);
     }
-  },        [txStep]);
+  }, [txStep]);
 
   if (txStep === TxStep.Broadcasting || txStep === TxStep.Posting) {
     return <FormLoading txHash={state.txHash} />;
@@ -61,47 +77,25 @@ const NewFundForm: FC = () => {
   if (txStep === TxStep.Success) {
     return (
       <FormSuccess
-        contentComponent={
-          <FormSummary
-            label="You've withdrawn"
-            tokens={[{ asset: "uusd", amount: debouncedAmount }]}
-          />
-        }
+        contentComponent={<div>You've created the fund!</div>}
         onCloseClick={handleSuccessClose}
       />
     );
   }
 
   if (txStep === TxStep.Failed) {
-    return (
-      <FormError
-        content={state.error}
-        onCloseClick={state.reset}
-        onClick={state.reset}
-      />
-    );
+    return <FormError content={state.error} onCloseClick={state.reset} onClick={state.reset} />;
   }
 
   return (
-    <FormProvider {...methods}>
-      <chakra.form onSubmit={methods.handleSubmit(submit)} width="full">
-        {!showConfirm && (
-          <NewFundFormInitial
-            token={token}
-            state={state}
-            onClick={() => setShowConfirm(true)}
-          />
-        )}
+    <FormProvider {...form}>
+      <chakra.form onSubmit={form.handleSubmit(onSubmit)} width="full">
+        {!showConfirm && <NewFundFormInitial state={state} onClick={() => setShowConfirm(true)} />}
         {showConfirm && (
           <FormConfirm
             fee={fee}
-            actionLabel="Confirm Withdrawal"
-            contentComponent={
-              <FormSummary
-                label="You'll withdraw"
-                tokens={[{ asset: "uusd", amount: debouncedAmount }]}
-              />
-            }
+            actionLabel="Confirm Fund Creation"
+            contentComponent={<div></div>}
             onCloseClick={() => setShowConfirm(false)}
           />
         )}
