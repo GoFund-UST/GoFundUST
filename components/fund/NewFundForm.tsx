@@ -77,7 +77,11 @@ const NewFundForm: FC = () => {
   if (txStep === TxStep.Success) {
     return (
       <FormSuccess
-        contentComponent={<div>You've created the fund!</div>}
+        contentComponent={
+          <div>
+            You&apos;ve created the fund! <b>TBD</b> show fund links
+          </div>
+        }
         onCloseClick={handleSuccessClose}
       />
     );
@@ -95,7 +99,11 @@ const NewFundForm: FC = () => {
           <FormConfirm
             fee={fee}
             actionLabel="Confirm Fund Creation"
-            contentComponent={<div></div>}
+            contentComponent={
+              <div>
+                <b>TBD</b> confirm details here
+              </div>
+            }
             onCloseClick={() => setShowConfirm(false)}
           />
         )}
