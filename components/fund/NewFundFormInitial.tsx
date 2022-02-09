@@ -35,29 +35,27 @@ const NewFundFormInitial: FC<Props> = ({state, onClick}) => {
         </Text>
       </Box>
       <Card mb="2">
-        <Text fontSize="xs" color="white.500">
-          <UnorderedList fontWeight="500">
-            <ListItem>
-              This will create your GoFund. We have no way of controlling who sends you funds.
-            </ListItem>
-            <ListItem>Once created, we have no way of closing this.</ListItem>
-            <ListItem>
-              We will charge you 5% on your earnings. Depositors will not get a charged a fee
-              (besides from the transaction fee for depositing and withdrawing funds)
-            </ListItem>
-            <ListItem>
-              We have the ability to put your earnings into your wallet. We do not have the ability
-              to modify the amount provided to you, we might do this if the fund appears dormant.
-            </ListItem>
-            <ListItem>
-              <strong>
-                Be aware: At the current stage we do not store the links to your GoFund. You are
-                responsible for placing them where your donors will see them. We do have the ability
-                to re-create these links, but do not rely on us being super responsive.
-              </strong>
-            </ListItem>
-          </UnorderedList>
-        </Text>
+        <UnorderedList fontWeight="500" fontSize="xs" color="white.500">
+          <ListItem>
+            This will create your GoFund. We have no way of controlling who sends you funds.
+          </ListItem>
+          <ListItem>Once created, we have no way of closing this.</ListItem>
+          <ListItem>
+            We will charge you 5% on your earnings. Depositors will not get a charged a fee (besides
+            from the transaction fee for depositing and withdrawing funds)
+          </ListItem>
+          <ListItem>
+            We have the ability to put your earnings into your wallet. We do not have the ability to
+            modify the amount provided to you, we might do this if the fund appears dormant.
+          </ListItem>
+          <ListItem>
+            <strong>
+              Be aware: At the current stage we do not store the links to your GoFund. You are
+              responsible for placing them where your donors will see them. We do have the ability
+              to re-create these links, but do not rely on us being super responsive.
+            </strong>
+          </ListItem>
+        </UnorderedList>
       </Card>
 
       <Card>
