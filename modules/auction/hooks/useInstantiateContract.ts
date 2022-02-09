@@ -13,17 +13,23 @@ export type State = {
 };
 
 type Params = {
-  newFundFormValues: NewFundFormValues | null;
+  poolNameValue: string | null;
+  newFundFormValues: NewFundFormValues;
   onSuccess?: (txHash: string) => void;
   onError?: (txHash?: string) => void;
 };
 
-export const useInstantiateContract = ({newFundFormValues, onSuccess, onError}: Params): State => {
+export const useInstantiateContract = ({
+  poolNameValue,
+  newFundFormValues,
+  onSuccess,
+  onError,
+}: Params): State => {
   const address = useAddress();
 
   // TODO_D make a PR on arthur's terra project, so it also takes this type
   const msgs: any = useMemo(() => {
-    if (!newFundFormValues) {
+    if (!newFundFormValues && !poolNameValue) {
       return null;
     }
 
@@ -33,8 +39,8 @@ export const useInstantiateContract = ({newFundFormValues, onSuccess, onError}: 
       },
       address
     );
-    // TODO_D I guess this stringify is bad practice, remote it somehow
-  }, [address, JSON.stringify(newFundFormValues)]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, poolNameValue]);
 
   return useTransaction({
     msgs,

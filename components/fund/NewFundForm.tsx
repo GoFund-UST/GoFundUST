@@ -12,7 +12,8 @@ import {
   FEE_MAX,
   FEE_RESET_EVERY_NUM_BLOCKS,
 } from 'constants/constants';
-import useInstantiateContract from 'modules/auction/hooks/useInstantiateContract';
+import useDebounceValue from 'hooks/useDebounceValue';
+import {useInstantiateContract} from 'modules/auction/hooks/useInstantiateContract';
 import {useContracts} from 'modules/common';
 import {useRouter} from 'next/router';
 import React, {FC, useEffect, useState} from 'react';
@@ -53,8 +54,9 @@ const NewFundForm: FC = () => {
     state.submit();
   };
 
-  // TODO_D dont call this everytime a form value changes
+  const poolNameValue = useDebounceValue(form.watch('pool_name'), 500);
   let state = useInstantiateContract({
+    poolNameValue,
     newFundFormValues: form.getValues(),
   });
 
