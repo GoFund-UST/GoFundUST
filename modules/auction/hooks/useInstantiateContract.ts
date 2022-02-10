@@ -13,23 +13,17 @@ export type State = {
 };
 
 type Params = {
-  poolNameValue: string | null;
   newFundFormValues: NewFundFormValues;
   onSuccess?: (txHash: string) => void;
   onError?: (txHash?: string) => void;
 };
 
-export const useInstantiateContract = ({
-  poolNameValue,
-  newFundFormValues,
-  onSuccess,
-  onError,
-}: Params): State => {
+export const useInstantiateContract = ({newFundFormValues, onSuccess, onError}: Params): State => {
   const address = useAddress();
 
   // TODO_D make a PR on arthur's terra project, so it also takes this type
   const msgs: any = useMemo(() => {
-    if (!newFundFormValues && !poolNameValue) {
+    if (!newFundFormValues) {
       return null;
     }
 
@@ -39,8 +33,7 @@ export const useInstantiateContract = ({
       },
       address
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, poolNameValue]);
+  }, [address, JSON.stringify(newFundFormValues)]);
 
   return useTransaction({
     msgs,
@@ -48,5 +41,3 @@ export const useInstantiateContract = ({
     onError,
   });
 };
-
-export default useInstantiateContract;

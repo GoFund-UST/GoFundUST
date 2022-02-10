@@ -56,10 +56,9 @@ const NewFundForm: FC = () => {
     state.submit();
   };
 
-  const poolNameValue = useDebounceValue(form.watch('pool_name'), 500);
+  const newFundFormValues = useDebounceValue(form.watch(), 500);
   let state = useInstantiateContract({
-    poolNameValue,
-    newFundFormValues: form.getValues(),
+    newFundFormValues,
   });
 
   const {fee, txStep} = state;
