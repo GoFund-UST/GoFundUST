@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Fee } from "@terra-money/terra.js";
 import { fromTerraAmount } from "@arthuryeti/terra";
 
-import { useAstroApp, Tokens } from "modules/common";
+import { useGoFundUstApp, Tokens } from "modules/common";
 
 const coinToString = (coin: any, tokens: Tokens) => {
   const amount = fromTerraAmount(coin.amount.toString(), "0.0000");
@@ -19,7 +19,7 @@ const coinsToString = (coins: any, tokens: Tokens) => {
 };
 
 export const useFeeToString = (fee: Fee) => {
-  const { tokens } = useAstroApp();
+  const { tokens } = useGoFundUstApp();
 
   return useMemo(() => {
     if (fee == null || !tokens) {

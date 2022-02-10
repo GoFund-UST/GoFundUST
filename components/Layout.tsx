@@ -3,6 +3,8 @@ import {Box, Flex} from '@chakra-ui/react';
 import {Global} from '@emotion/react';
 import {useWallet, WalletStatus} from '@terra-money/wallet-provider';
 import Navbar from 'components/Navbar';
+import whitelist from "constants/whitelist.json";
+import { GoFundUstAppProvider } from 'modules/common';
 import React, {FC} from 'react';
 
 const Layout: FC = ({children}) => {
@@ -41,10 +43,12 @@ const Layout: FC = ({children}) => {
       />
       {!isInitializing && (
         <TerraWebappProvider>
-          <Box>
-            <Navbar />
-          </Box>
-          <Box flex="1">{children}</Box>
+          <GoFundUstAppProvider data={whitelist}>
+            <Box>
+              <Navbar />
+            </Box>
+            <Box flex="1">{children}</Box>
+          </GoFundUstAppProvider>
         </TerraWebappProvider>
       )}
     </Flex>

@@ -1,31 +1,44 @@
-import dayjs from 'dayjs';
-import {Consumer, Context, createContext, useContext} from 'react';
-import {Data, PairResponse, Tokens} from './types';
+import {useWallet} from '@terra-money/wallet-provider';
+import React, {Consumer, Context, createContext, FC, ReactNode, useContext, useMemo} from 'react';
+import {Data, Tokens} from './types';
 
-type Astro = {
-  pairs: PairResponse[] | null;
-  lockdropConfig: any | null;
+type GoFundUst = {
   tokens: Tokens | null;
   data: Data | null;
-  phase1StartDate: dayjs.Dayjs | null;
-  phase1EndDate: dayjs.Dayjs | null;
-  phase2StartDate: dayjs.Dayjs | null;
-  phase2EndDate: dayjs.Dayjs | null;
 };
 
-export const AstroAppContext: Context<Astro> = createContext<Astro>({
-  lockdropConfig: null,
-  pairs: null,
+export const GoFundUstAppContext: Context<GoFundUst> = createContext<GoFundUst>({
   tokens: null,
   data: null,
-  phase1StartDate: null,
-  phase1EndDate: null,
-  phase2StartDate: null,
-  phase2EndDate: null,
 });
 
-export function useAstroApp(): Astro {
-  return useContext(AstroAppContext);
+type Props = {
+  children: ReactNode;
+  data: Data;
+};
+
+export const GoFundUstAppProvider: FC<Props> = ({children, data}) => {
+  const {
+    network: {name},
+  } = useWallet();
+
+  const tokens = useMemo(() => {
+    return data[name].tokens;
+  }, [name, data]);
+
+  return (
+    <GoFundUstAppContext.Provider
+      value={{
+        tokens,
+        data
+      }}>
+      {children}
+    </GoFundUstAppContext.Provider>
+  );
+};
+
+export function useGoFundUstApp(): GoFundUst {
+  return useContext(GoFundUstAppContext);
 }
 
-export const AstroAppConsumer: Consumer<Astro> = AstroAppContext.Consumer;
+export const GoFundUstAppConsumer: Consumer<GoFundUst> = GoFundUstAppContext.Consumer;
