@@ -3,6 +3,7 @@ import {chakra} from '@chakra-ui/react';
 import {TxInfo} from '@terra-money/terra.js';
 import FormConfirm from 'components/common/FormConfirm';
 import FormError from 'components/common/FormError';
+import FormGenericSummary from 'components/common/FormGenericSummary';
 import FormLoading from 'components/common/FormLoading';
 import FormSuccess from 'components/common/FormSuccess';
 import NewFundFormInitial from 'components/fund/NewFundFormInitial';
@@ -15,6 +16,7 @@ import {
   FEE_RESET_EVERY_NUM_BLOCKS,
 } from 'constants/constants';
 import useDebounceValue from 'hooks/useDebounceValue';
+import {objectToArrayOfTuple} from 'libs/helpers';
 import {useInstantiateContract} from 'modules/auction/hooks/useInstantiateContract';
 import {useContracts} from 'modules/common';
 import {useRouter} from 'next/router';
@@ -65,7 +67,7 @@ const NewFundForm: FC = () => {
     setInstantiateContractAddress(instantiateContractAddress);
   }, []);
 
-  const newFundFormValues = useDebounceValue(form.watch(), 500);
+  const newFundFormValues: NewFundFormValues = useDebounceValue(form.watch(), 500);
   let state = useInstantiateContract({
     newFundFormValues,
     onSuccess,
@@ -114,9 +116,13 @@ const NewFundForm: FC = () => {
             fee={fee}
             actionLabel="Confirm Fund Creation"
             contentComponent={
-              <div>
-                <b>TBD</b> confirm details here
-              </div>
+              <FormGenericSummary
+                fields={objectToArrayOfTuple({
+                  'Fund name': newFundFormValues.pool_name,
+                  Title: newFundFormValues.pool_title,
+                  Description: newFundFormValues.pool_description,
+                })}
+              />
             }
             onCloseClick={() => setShowConfirm(false)}
           />
