@@ -65,7 +65,7 @@ const NewFundFormInitial: FC<Props> = ({state, onClick}) => {
             id="pool_name"
             {...register('pool_name', {
               required: 'This is required',
-              maxLength: {value: 10, message: 'Maximum length should be 10'},
+              maxLength: {value: 9, message: 'Maximum length should be 9'},
             })}
           />
           <FormErrorMessage>{errors?.pool_name?.message}</FormErrorMessage>
