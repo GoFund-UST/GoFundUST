@@ -20,6 +20,7 @@ import TerraWallet from 'components/TerraWallet';
 import NavbarLink from 'components/NavbarLink';
 import BurgerIcon from 'components/icons/BurgerIcon';
 import CloseIcon from 'components/icons/CloseIcon';
+import {TEST_POOL} from 'constants/constants';
 
 const Navbar: FC = () => {
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -45,14 +46,8 @@ const Navbar: FC = () => {
             <NavbarLink text="Home" href="/" />
             <NavbarLink text="New Fund" href="/new" />
 
-            <NavbarLink
-              text="Test Page"
-              href="/fund/terra1k4fkj4c4ctpknzk8m50khngnhyq4v5yrtr9ldk"
-            />
-            <NavbarLink
-              text="Test Admin Page"
-              href="/admin/terra1k4fkj4c4ctpknzk8m50khngnhyq4v5yrtr9ldk"
-            />
+            <NavbarLink text="Test Page" href={'/fund/' + TEST_POOL} />
+            <NavbarLink text="Test Admin Page" href={'/admin/' + TEST_POOL} />
           </HStack>
         </Box>
         <HStack spacing="5" justify="flex-end">
@@ -91,10 +86,10 @@ const Navbar: FC = () => {
                 <Link href="/new" color="white">
                   New GoFund
                 </Link>
-                <Link color="white.500" href="/fund/terra1k4fkj4c4ctpknzk8m50khngnhyq4v5yrtr9ldk">
+                <Link color="white.500" href={'/fund/' + TEST_POOL}>
                   Test Page
                 </Link>
-                <Link color="white.500" href="/admin/terra1k4fkj4c4ctpknzk8m50khngnhyq4v5yrtr9ldk">
+                <Link color="white.500" href={'/admin/' + TEST_POOL}>
                   Test Admin
                 </Link>
               </VStack>

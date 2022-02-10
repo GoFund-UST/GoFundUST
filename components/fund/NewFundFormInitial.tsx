@@ -65,28 +65,28 @@ const NewFundFormInitial: FC<Props> = ({state, onClick}) => {
             id="pool_name"
             {...register('pool_name', {
               required: 'This is required',
-              maxLength: {value: 4, message: 'Maximum length should be 4'},
+              maxLength: {value: 10, message: 'Maximum length should be 10'},
             })}
           />
           <FormErrorMessage>{errors?.pool_name?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl mt={4} isInvalid={!!errors.pool_oneliner}>
-          <FormLabel htmlFor="pool_oneliner">Title</FormLabel>
+        <FormControl mt={4} isInvalid={!!errors.pool_title}>
+          <FormLabel htmlFor="pool_title">Title</FormLabel>
           <Input
-            id="pool_oneliner"
-            {...register('pool_oneliner', {
+            id="pool_title"
+            {...register('pool_title', {
               required: 'This is required',
               maxLength: {value: 64, message: 'Maximum length should be 64'},
             })}
           />
-          <FormErrorMessage>{errors?.pool_oneliner?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors?.pool_title?.message}</FormErrorMessage>
         </FormControl>
         <FormControl mt={4} isInvalid={!!errors.pool_description}>
           <FormLabel htmlFor="pool_description">Description</FormLabel>
           <Textarea
             id="pool_description"
             {...register('pool_description', {
-              maxLength: {value: 128, message: 'Maximum length should be 128'},
+              maxLength: {value: 1024, message: 'Maximum length should be 1024'},
             })}
           />
           <FormErrorMessage>{errors?.pool_description?.message}</FormErrorMessage>

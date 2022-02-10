@@ -21,15 +21,16 @@ import {FormProvider, useForm} from 'react-hook-form';
 
 export type NewFundFormValues = {
   pool_name: string;
-  pool_oneliner: string;
+  pool_title: string;
   pool_description: string;
   beneficiary: string;
   dp_code_id: number;
   fee_amount: string;
   fee_collector: string;
-  fee_max: number;
+  fee_max: string;
   fee_reset_every_num_blocks: number;
   money_market: string;
+  owner_can_change_config: boolean;
 };
 
 const NewFundForm: FC = () => {
@@ -44,9 +45,10 @@ const NewFundForm: FC = () => {
       dp_code_id: DP_CODE_ID,
       fee_amount: FEE_AMOUNT,
       fee_collector: FEE_COLLECTOR,
-      fee_max: FEE_MAX,
+      fee_max: FEE_MAX.toString(10),
       fee_reset_every_num_blocks: FEE_RESET_EVERY_NUM_BLOCKS,
       money_market: moneyMarket,
+      owner_can_change_config: false,
     },
   });
 

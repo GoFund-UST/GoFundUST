@@ -1,32 +1,19 @@
-import React, { FC, useCallback, useState } from "react";
-import {
-  Box,
-  Flex,
-  HStack,
-  Text,
-  IconButton,
-  Button,
-  Heading,
-  Link,
-  VStack,
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import React, {FC, useCallback, useState} from 'react';
+import {Box, Flex, HStack, Text, IconButton, Button, Heading, Link, VStack} from '@chakra-ui/react';
+import {motion} from 'framer-motion';
 
-import { truncate } from "libs/text";
+import {truncate} from 'libs/text';
 
-import Card from "components/Card";
-import CloseModalIcon from "components/icons/CloseModalIcon";
-import {
-  CrowdFundConfigResponse,
-  CrowdFundStateResponse,
-} from "modules/crowdfund";
-import { useCrowdFundDepositPool } from "modules/crowdfund/hooks/useCrowdDepositPool";
-import FundAdminAmountCard from "components/common/FundAdminAmountCard";
-import Lottie from "react-lottie";
-import * as animationData from "libs/animations/66643-waitwhite.json";
-import USTIcon from "components/icons/USTIcon";
-import { TxResult, useConnectedWallet } from "@terra-money/wallet-provider";
-import {  MsgExecuteContract } from "@terra-money/terra.js";
+import Card from 'components/Card';
+import CloseModalIcon from 'components/icons/CloseModalIcon';
+import {CrowdFundConfigResponse, CrowdFundStateResponse} from 'modules/crowdfund';
+import {useCrowdFundDepositPool} from 'modules/crowdfund/hooks/useCrowdDepositPool';
+import FundAdminAmountCard from 'components/common/FundAdminAmountCard';
+import Lottie from 'react-lottie';
+import * as animationData from 'libs/animations/66643-waitwhite.json';
+import USTIcon from 'components/icons/USTIcon';
+import {TxResult, useConnectedWallet} from '@terra-money/wallet-provider';
+import {MsgExecuteContract} from '@terra-money/terra.js';
 
 type Props = {
   detail: CrowdFundConfigResponse;
@@ -37,12 +24,7 @@ type Props = {
 
 const MotionBox = motion(Box);
 
-const FundAdminDetail: FC<Props> = ({
-  detail,
-  claimable,
-  address,
-  onCloseClick,
-}) => {
+const FundAdminDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
   const truncatedAddress = truncate(address);
   const depositPoolDetails = useCrowdFundDepositPool(detail.dp_token);
   const [txResult, setTxResult] = useState<TxResult | null>(null);
@@ -60,25 +42,25 @@ const FundAdminDetail: FC<Props> = ({
     // eslint-disable-next-line no-console
     console.log(msg.toJSON());
     return connectedWallet
-      .post({ memo: "GoFund US(T)", msgs: [msg] })
-      .then((txResultReturned) => {
+      .post({memo: 'GoFund US(T)', msgs: [msg]})
+      .then(txResultReturned => {
         // eslint-disable-next-line no-console
         console.log(txResultReturned);
         setTxResult(txResultReturned);
       })
-      .catch((error) => {
+      .catch(error => {
         // eslint-disable-next-line no-console
-        console.log("ERROR", error);
+        console.log('ERROR', error);
         setTxError(error.toString);
       });
-  },                                   [connectedWallet, address]);
+  }, [connectedWallet, address]);
 
   const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
 
@@ -105,18 +87,17 @@ const FundAdminDetail: FC<Props> = ({
   } else {
     return (
       <MotionBox
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{opacity: 0, scale: 0.8}}
+        animate={{opacity: 1, scale: 1}}
         w="800px"
         m="0 auto"
-        mt="10"
-      >
+        mt="10">
         <Card>
           <Flex justify="space-between" align="center" mb="4">
             <HStack>
               <USTIcon />
               <Text fontSize="lg" color="yellow.500">
-                {detail.pool_oneliner} (ADMIN)
+                {detail.pool_title} (ADMIN)
               </Text>
             </HStack>
             <IconButton
@@ -127,14 +108,10 @@ const FundAdminDetail: FC<Props> = ({
             />
           </Flex>
           <Text fontSize="light" color="yellow.500">
-            beneficiary{" "}
+            beneficiary{' '}
             <a
-              href={
-                "https://finder.extraterrestrial.money/testnet/address/" +
-                detail.beneficiary
-              }
-              target="_beneficiary"
-            >
+              href={'https://finder.extraterrestrial.money/testnet/address/' + detail.beneficiary}
+              target="_beneficiary">
               {detail.beneficiary}
             </a>
           </Text>
@@ -153,11 +130,10 @@ const FundAdminDetail: FC<Props> = ({
                 <Button
                   variant="primary"
                   width="256px"
-                  onClick={(e) => {
+                  onClick={e => {
                     e.preventDefault();
                     withdrawEarnings();
-                  }}
-                >
+                  }}>
                   Withdraw earnings
                 </Button>
               )}
@@ -168,8 +144,7 @@ const FundAdminDetail: FC<Props> = ({
                   href={`https://finder.terra.money/${connectedWallet.network.chainID}/tx/${txResult.result.txhash}`}
                   target="_blank"
                   rel="noreferrer"
-                  external={true}
-                >
+                  external={true}>
                   Open Tx Result in Terra Finder
                 </Link>
               </Text>
