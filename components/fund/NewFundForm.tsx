@@ -48,7 +48,7 @@ const NewFundForm: FC = () => {
       dp_code_id: DP_CODE_ID,
       fee_amount: FEE_AMOUNT,
       fee_collector: FEE_COLLECTOR,
-      fee_max: FEE_MAX.toString(10),
+      fee_max: FEE_MAX,
       fee_reset_every_num_blocks: FEE_RESET_EVERY_NUM_BLOCKS,
       money_market: moneyMarket,
       owner_can_change_config: false,
