@@ -1,4 +1,5 @@
 import {TxStep, useAddress, useTransaction} from '@arthuryeti/terra';
+import { TxInfo } from '@terra-money/terra.js';
 import {NewFundFormValues} from 'components/fund/NewFundForm';
 import {createFundMsgs} from 'modules/auction/createFundMsg';
 import {useMemo} from 'react';
@@ -14,7 +15,7 @@ export type State = {
 
 type Params = {
   newFundFormValues: NewFundFormValues;
-  onSuccess?: (txHash: string) => void;
+  onSuccess?: (txHash: string, txInfo: TxInfo) => void;
   onError?: (txHash?: string) => void;
 };
 

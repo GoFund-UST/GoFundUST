@@ -1,10 +1,12 @@
 import {TxStep, useAddress} from '@arthuryeti/terra';
 import {chakra} from '@chakra-ui/react';
+import {TxInfo} from '@terra-money/terra.js';
 import FormConfirm from 'components/common/FormConfirm';
 import FormError from 'components/common/FormError';
 import FormLoading from 'components/common/FormLoading';
 import FormSuccess from 'components/common/FormSuccess';
 import NewFundFormInitial from 'components/fund/NewFundFormInitial';
+import NewFundFormSuccessContent from 'components/fund/NewFundFormSuccessContent';
 import {
   DP_CODE_ID,
   FEE_AMOUNT,
@@ -16,7 +18,7 @@ import useDebounceValue from 'hooks/useDebounceValue';
 import {useInstantiateContract} from 'modules/auction/hooks/useInstantiateContract';
 import {useContracts} from 'modules/common';
 import {useRouter} from 'next/router';
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
 
 export type NewFundFormValues = {
@@ -38,6 +40,7 @@ const NewFundForm: FC = () => {
   const router = useRouter();
   const address = useAddress();
   const {moneyMarket} = useContracts();
+  const [instantiateContractAddress, setInstantiateContractAddress] = useState<string>();
   const form = useForm<NewFundFormValues>({
     mode: 'onBlur',
     defaultValues: {
@@ -56,9 +59,16 @@ const NewFundForm: FC = () => {
     state.submit();
   };
 
+  const onSuccess = useCallback((txHash: string, txInfo: TxInfo) => {
+    const instantiateContractAddress: string =
+      txInfo.logs?.[0].eventsByType['wasm']?.contract_address?.[0];
+    setInstantiateContractAddress(instantiateContractAddress);
+  }, []);
+
   const newFundFormValues = useDebounceValue(form.watch(), 500);
   let state = useInstantiateContract({
     newFundFormValues,
+    onSuccess,
   });
 
   const {fee, txStep} = state;
@@ -81,9 +91,10 @@ const NewFundForm: FC = () => {
     return (
       <FormSuccess
         contentComponent={
-          <div>
-            You&apos;ve created the fund! <b>TBD</b> show fund links
-          </div>
+          <NewFundFormSuccessContent
+            txHash={state.txHash}
+            instantiateContractAddress={instantiateContractAddress}
+          />
         }
         onCloseClick={handleSuccessClose}
       />
