@@ -1,4 +1,4 @@
-import { Msg } from "@terra-money/terra.js";
+import {Msg} from '@terra-money/terra.js';
 
 export type ContractVariables = {
   contract: string;
@@ -32,8 +32,8 @@ export interface Response<T> {
 }
 
 export enum NetworkType {
-  Mainnet = "mainnet",
-  Testnet = "testnet",
+  Mainnet = 'mainnet',
+  Testnet = 'testnet',
 }
 export interface Network {
   name: NetworkType;
@@ -63,11 +63,11 @@ export type WASMContractResult<T extends {} = {}> = {
 
 export type CW20AssetInfo = {
   native_token: never;
-  token: { contract_addr: CW20Addr };
+  token: {contract_addr: CW20Addr};
 };
 export type NativeAssetInfo = {
   token: never;
-  native_token: { denom: StableDenom };
+  native_token: {denom: StableDenom};
 };
 
 export type AssetInfo = CW20AssetInfo | NativeAssetInfo;
@@ -133,4 +133,12 @@ export enum AstroFormType {
 export enum ProvideFormMode {
   Single = 0,
   Double = 1,
+}
+
+export interface FundListItem {
+  contract: string;
+  owner: string;
+  beneficiary: string;
+  pool_name: string;
+  open: boolean;
 }

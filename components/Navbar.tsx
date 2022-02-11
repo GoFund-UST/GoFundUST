@@ -46,7 +46,7 @@ const Navbar: FC = () => {
             <NavbarLink text="Home" href="/" />
             <NavbarLink text="New Fund" href="/new" />
 
-            <NavbarLink text="Test Page" href={'/fund/' + TEST_POOL} />
+            <NavbarLink text="Fund List" href={'/funds'} />
             <NavbarLink text="Test Admin Page" href={'/admin/' + TEST_POOL} />
           </HStack>
         </Box>
