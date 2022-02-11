@@ -10,7 +10,7 @@ import NewFundFormInitial from 'components/fund/NewFundFormInitial';
 import NewFundFormSuccessContent from 'components/fund/NewFundFormSuccessContent';
 import useDebounceValue from 'hooks/useDebounceValue';
 import {objectToArrayOfTuple} from 'libs/helpers';
-import {useCreateFund} from 'modules/terra/hooks/useCreateFund';
+import {useCreateFund} from 'modules/crowdfund/hooks/useCreateFund';
 import {useRouter} from 'next/router';
 import React, {FC, useCallback, useEffect, useState} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';

@@ -2,7 +2,7 @@ import {TxStep, useAddress, useTransaction} from '@arthuryeti/terra';
 import {TxInfo} from '@terra-money/terra.js';
 import {NewFundFormValues} from 'components/fund/NewFundForm';
 import {useContracts} from 'modules/common';
-import {createFundMsgs} from 'modules/terra/createFundMsg';
+import {createFundMsgs} from 'modules/crowdfund/createFundMsg';
 import {useMemo} from 'react';
 
 export type State = {

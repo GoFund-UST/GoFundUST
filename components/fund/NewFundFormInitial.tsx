@@ -13,7 +13,7 @@ import Card from 'components/Card';
 import {NewFundFormValues} from 'components/fund/NewFundForm';
 import NewFundFormFooter from 'components/fund/NewFundFormFooter';
 import { FEE_AMOUNT_WORDS } from 'constants/constants';
-import { State } from 'modules/terra/hooks/useCreateFund';
+import { State } from 'modules/crowdfund/hooks/useCreateFund';
 import React, {FC} from 'react';
 import {useFormContext} from 'react-hook-form';
 
