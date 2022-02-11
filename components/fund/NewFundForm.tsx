@@ -17,7 +17,7 @@ import {
 } from 'constants/constants';
 import useDebounceValue from 'hooks/useDebounceValue';
 import {objectToArrayOfTuple} from 'libs/helpers';
-import {useInstantiateContract} from 'modules/auction/hooks/useInstantiateContract';
+import {useInstantiateContract} from 'modules/terra/hooks/useInstantiateContract';
 import {useContracts} from 'modules/common';
 import {useRouter} from 'next/router';
 import React, {FC, useCallback, useEffect, useState} from 'react';

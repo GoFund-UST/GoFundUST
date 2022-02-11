@@ -2,7 +2,8 @@ import { useMemo } from "react";
 import { Fee } from "@terra-money/terra.js";
 import { fromTerraAmount } from "@arthuryeti/terra";
 
-import { useGoFundUstApp, Tokens } from "modules/common";
+import { useGoFundUstApp } from "modules/common";
+import { Tokens } from 'modules/common/types/common';
 
 const coinToString = (coin: any, tokens: Tokens) => {
   const amount = fromTerraAmount(coin.amount.toString(), "0.0000");

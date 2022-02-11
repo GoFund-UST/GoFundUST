@@ -13,7 +13,7 @@ import Card from 'components/Card';
 import {NewFundFormValues} from 'components/fund/NewFundForm';
 import NewFundFormFooter from 'components/fund/NewFundFormFooter';
 import { FEE_AMOUNT_WORDS } from 'constants/constants';
-import {State} from 'modules/auction/hooks/useInstantiateContract';
+import {State} from 'modules/terra/hooks/useInstantiateContract';
 import React, {FC} from 'react';
 import {useFormContext} from 'react-hook-form';
 
