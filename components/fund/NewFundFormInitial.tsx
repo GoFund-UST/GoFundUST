@@ -46,7 +46,8 @@ const NewFundFormInitial: FC<Props> = ({state, onClick}) => {
           </ListItem>
           <ListItem>
             We have the ability to put your earnings into your wallet. We do not have the ability to
-            modify the amount provided to you, we might do this if the fund appears dormant.
+            modify the amount provided to you, and might do this if the earnings have not been
+            collected for a prolonged period.
           </ListItem>
           <ListItem>
             <strong>
