@@ -19,4 +19,4 @@ Runs the app in the development mode.
 # NOTE
 This project was forked from [Astroport Lockdrop](https://github.com/astroport-fi/lockdrop-frontend)
 Kudos goes to them for open sourcing it.
-Blame/bugs are due to PFC.
+Blame/bugs are due to GoFund US(T) team.

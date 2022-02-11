@@ -12,6 +12,7 @@ import {
 import Card from 'components/Card';
 import {NewFundFormValues} from 'components/fund/NewFundForm';
 import NewFundFormFooter from 'components/fund/NewFundFormFooter';
+import { FEE_AMOUNT_WORDS } from 'constants/constants';
 import {State} from 'modules/auction/hooks/useInstantiateContract';
 import React, {FC} from 'react';
 import {useFormContext} from 'react-hook-form';
@@ -41,7 +42,7 @@ const NewFundFormInitial: FC<Props> = ({state, onClick}) => {
           </ListItem>
           <ListItem>Once created, we have no way of closing this.</ListItem>
           <ListItem>
-            We will charge you 5% on your earnings. Depositors will not get a charged a fee (besides
+            We will charge you {FEE_AMOUNT_WORDS} on your earnings. Depositors will not get a charged a fee (besides
             from the transaction fee for depositing and withdrawing funds)
           </ListItem>
           <ListItem>

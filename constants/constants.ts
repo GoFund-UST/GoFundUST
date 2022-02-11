@@ -14,7 +14,8 @@ export const GRAPHQL = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT;
 
 /* New fund constants */
 export const DP_CODE_ID = 1572;
-export const FEE_AMOUNT = '0.05';
+export const FEE_AMOUNT = '0.02';
+export const FEE_AMOUNT_WORDS = '2%';
 export const FEE_COLLECTOR = 'terra1yt8xwehw3mngc7h2z09utf32cgpdpe09lke902';
 export const FEE_MAX = '0';
 export const FEE_RESET_EVERY_NUM_BLOCKS = 0;
