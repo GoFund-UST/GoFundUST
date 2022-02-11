@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 import { useWallet } from "@terra-money/wallet-provider";
 
-import { useAstroApp } from "../context";
+import { useGoFundUstApp } from "../context";
 
 export const useTokenInfo = () => {
   const {
     network: { name },
   } = useWallet();
-  const { data } = useAstroApp();
+  const { data } = useGoFundUstApp();
 
   const getSymbol = useCallback(
     (token: string) => {

@@ -12,12 +12,12 @@ import {
 import Card from 'components/Card';
 import {NewFundFormValues} from 'components/fund/NewFundForm';
 import NewFundFormFooter from 'components/fund/NewFundFormFooter';
-import {WithdrawState} from 'modules/auction';
+import {State} from 'modules/auction/hooks/useInstantiateContract';
 import React, {FC} from 'react';
 import {useFormContext} from 'react-hook-form';
 
 type Props = {
-  state: WithdrawState;
+  state: State;
   onClick: () => void;
 };
 
