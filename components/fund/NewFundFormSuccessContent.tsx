@@ -3,9 +3,9 @@ import useFinder from 'hooks/useFinder';
 import {truncate} from 'libs/text';
 import {FC} from 'react';
 
-type Props = {txHash: string; instantiateContractAddress: string};
+type Props = {txHash: string; fundAddress: string};
 
-const NewFundFormSuccessContent: FC<Props> = ({txHash, instantiateContractAddress}) => {
+const NewFundFormSuccessContent: FC<Props> = ({txHash, fundAddress}) => {
   const finder = useFinder();
 
   return (
@@ -19,8 +19,8 @@ const NewFundFormSuccessContent: FC<Props> = ({txHash, instantiateContractAddres
           Fund address:
         </Text>
         <Text variant="cardDescription" fontWeight="bold">
-          <Link fontWeight="bold" href={`fund/${instantiateContractAddress}`} target="_blank">
-            {instantiateContractAddress}
+          <Link fontWeight="bold" href={`fund/${fundAddress}`} target="_blank">
+            {fundAddress}
           </Link>
         </Text>
       </div>

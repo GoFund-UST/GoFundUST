@@ -1,19 +1,21 @@
-import {MsgInstantiateContract} from '@terra-money/terra.js';
+import {MsgExecuteContract} from '@terra-money/terra.js';
 import {NewFundFormValues} from 'components/fund/NewFundForm';
-import {GO_FUND_UST_CODE_ID} from 'constants/constants';
 
 type CreateFundMsgsOptions = {
+  contract: string;
   newFundFormValues: NewFundFormValues;
 };
 
 export const createFundMsgs = (options: CreateFundMsgsOptions, sender: string) => {
-  const {newFundFormValues} = options;
-  const instantiate = new MsgInstantiateContract(
-    sender,
-    '',
-    GO_FUND_UST_CODE_ID,
-    newFundFormValues
-  );
+  const {contract, newFundFormValues} = options;
 
-  return [instantiate];
+  const executeMsg = {
+    create_anchor_fund: {
+      ...newFundFormValues,
+    },
+  };
+
+  const msg = new MsgExecuteContract(sender, contract, executeMsg);
+
+  return [msg];
 };

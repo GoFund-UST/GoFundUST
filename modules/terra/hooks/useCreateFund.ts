@@ -1,6 +1,7 @@
 import {TxStep, useAddress, useTransaction} from '@arthuryeti/terra';
-import { TxInfo } from '@terra-money/terra.js';
+import {TxInfo} from '@terra-money/terra.js';
 import {NewFundFormValues} from 'components/fund/NewFundForm';
+import {useContracts} from 'modules/common';
 import {createFundMsgs} from 'modules/terra/createFundMsg';
 import {useMemo} from 'react';
 
@@ -19,22 +20,23 @@ type Params = {
   onError?: (txHash?: string) => void;
 };
 
-export const useInstantiateContract = ({newFundFormValues, onSuccess, onError}: Params): State => {
+export const useCreateFund = ({newFundFormValues, onSuccess, onError}: Params): State => {
+  const {fundFactory} = useContracts();
   const address = useAddress();
 
-  // TODO_D make a PR on arthur's terra project, so it also takes this type
-  const msgs: any = useMemo(() => {
+  const msgs = useMemo(() => {
     if (!newFundFormValues) {
       return null;
     }
 
     return createFundMsgs(
       {
+        contract: fundFactory,
         newFundFormValues,
       },
       address
     );
-  }, [address, JSON.stringify(newFundFormValues)]);
+  }, [address, fundFactory, JSON.stringify(newFundFormValues)]);
 
   return useTransaction({
     msgs,

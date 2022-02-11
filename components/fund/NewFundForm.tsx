@@ -8,17 +8,9 @@ import FormLoading from 'components/common/FormLoading';
 import FormSuccess from 'components/common/FormSuccess';
 import NewFundFormInitial from 'components/fund/NewFundFormInitial';
 import NewFundFormSuccessContent from 'components/fund/NewFundFormSuccessContent';
-import {
-  DP_CODE_ID,
-  FEE_AMOUNT,
-  FEE_COLLECTOR,
-  FEE_MAX,
-  FEE_RESET_EVERY_NUM_BLOCKS,
-} from 'constants/constants';
 import useDebounceValue from 'hooks/useDebounceValue';
 import {objectToArrayOfTuple} from 'libs/helpers';
-import {useInstantiateContract} from 'modules/terra/hooks/useInstantiateContract';
-import {useContracts} from 'modules/common';
+import {useCreateFund} from 'modules/terra/hooks/useCreateFund';
 import {useRouter} from 'next/router';
 import React, {FC, useCallback, useEffect, useState} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
@@ -28,32 +20,17 @@ export type NewFundFormValues = {
   pool_title: string;
   pool_description: string;
   beneficiary: string;
-  dp_code_id: number;
-  fee_amount: string;
-  fee_collector: string;
-  fee_max: string;
-  fee_reset_every_num_blocks: number;
-  money_market: string;
-  owner_can_change_config: boolean;
 };
 
 const NewFundForm: FC = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const router = useRouter();
   const address = useAddress();
-  const {moneyMarket} = useContracts();
-  const [instantiateContractAddress, setInstantiateContractAddress] = useState<string>();
+  const [fundAddress, setFundAddress] = useState<string>();
   const form = useForm<NewFundFormValues>({
     mode: 'onBlur',
     defaultValues: {
       beneficiary: address,
-      dp_code_id: DP_CODE_ID,
-      fee_amount: FEE_AMOUNT,
-      fee_collector: FEE_COLLECTOR,
-      fee_max: FEE_MAX,
-      fee_reset_every_num_blocks: FEE_RESET_EVERY_NUM_BLOCKS,
-      money_market: moneyMarket,
-      owner_can_change_config: false,
     },
   });
 
@@ -62,13 +39,12 @@ const NewFundForm: FC = () => {
   };
 
   const onSuccess = useCallback((txHash: string, txInfo: TxInfo) => {
-    const instantiateContractAddress: string =
-      txInfo.logs?.[0].eventsByType['wasm']?.contract_address?.[0];
-    setInstantiateContractAddress(instantiateContractAddress);
+    const fundAddress: string = txInfo.logs?.[0].eventsByType['wasm']?.contract_address?.[0];
+    setFundAddress(fundAddress);
   }, []);
 
   const newFundFormValues: NewFundFormValues = useDebounceValue(form.watch(), 500);
-  let state = useInstantiateContract({
+  let state = useCreateFund({
     newFundFormValues,
     onSuccess,
   });
@@ -93,10 +69,7 @@ const NewFundForm: FC = () => {
     return (
       <FormSuccess
         contentComponent={
-          <NewFundFormSuccessContent
-            txHash={state.txHash}
-            instantiateContractAddress={instantiateContractAddress}
-          />
+          <NewFundFormSuccessContent txHash={state.txHash} fundAddress={fundAddress} />
         }
         onCloseClick={handleSuccessClose}
       />
