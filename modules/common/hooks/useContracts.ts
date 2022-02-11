@@ -13,7 +13,7 @@ type Networks = {
 
 const defaultContracts: Networks = {
   mainnet: {
-    moneyMarket: 'terra15dwd5mj8v59wpj0wvt233mf5efdff808c5tkal',
+    moneyMarket: 'terra1sepfj7s0aeg5967uxnfk4thzlerrsktkpelm5s',
     crowdFactory: 'terra1dpe2aqykm2vnakcz4vgpha0agxnlkjvgfahhk7',
   },
   testnet: {
