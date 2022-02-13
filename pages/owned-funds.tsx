@@ -2,14 +2,14 @@ import {useAddress} from '@arthuryeti/terra';
 import {Container} from '@chakra-ui/react';
 import {WalletNotConnectedOverlay} from 'components/common/WalletNotConnectedOverlay';
 import FundList from 'components/pages/FundList';
-import {useQueryFundListByOwner} from 'modules/crowdfund/hooks/useQueryFund';
+import {useQueryFundListByBeneficiary} from 'modules/crowdfund/hooks/useQueryFund';
 import {NextPage} from 'next';
 import Head from 'next/head';
 import React from 'react';
 
 export const OwnedFundsPage: NextPage = () => {
   const address = useAddress();
-  const {data, isLoading} = useQueryFundListByOwner(address);
+  const {data, isLoading} = useQueryFundListByBeneficiary(address);
 
   return (
     <>

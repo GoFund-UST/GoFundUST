@@ -27,14 +27,14 @@ export const useQueryFundList = () => {
   };
 };
 
-export const useQueryFundListByOwner = (ownerAddress: string) => {
+export const useQueryFundListByBeneficiary = (beneficiaryAddress: string) => {
   const {fundFactory} = useContracts();
   const {client} = useTerraWebapp();
 
-  const {data, isLoading} = useQuery([ownerAddress, 'anchor_funds_by_owner'], () => {
+  const {data, isLoading} = useQuery([beneficiaryAddress, 'anchor_funds_by_beneficiary'], () => {
     return client.wasm.contractQuery<FundListResponse>(fundFactory, {
-      anchor_funds_by_owner: {
-        owner: ownerAddress,
+      anchor_funds_by_beneficiary: {
+        beneficiary: beneficiaryAddress,
       },
     });
   });
