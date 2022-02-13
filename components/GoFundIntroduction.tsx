@@ -40,7 +40,7 @@ const GoFundIntroduction = () => {
           </Text>
           <NextLink href="/new" passHref={true}>
             <Button as="a" variant="primary" width="256px">
-              create a fund
+              Create Fund
             </Button>
           </NextLink>
           <Text>
@@ -49,51 +49,13 @@ const GoFundIntroduction = () => {
             un-stoppable.
           </Text>
         </VStack>
-        <AspectRatio position="relative" width={['100%', null, '50%']} ratio={527 / 357}>
+        <AspectRatio position="relative" width={'md'} ratio={527 / 357}>
           <Box position="relative" width="100%" height="100%">
             <Box position="absolute" top="0" left="0" width="100%" height="100%" zIndex="1">
-              <Image
-                src="/placeholder-image-300x225.png"
-                srcSet="placeholder@2x.png 2x"
-                alt=""
-                className="intro-1"
-                width="100%"
-              />
+              <Flex justify="center" alignItems="center" width="100%" height="100%">
+                <Image src="/favicon.png" alt="" height="100%" />
+              </Flex>
             </Box>
-            <Flex
-              position="absolute"
-              top="0"
-              left="0"
-              width="100%"
-              height="100%"
-              zIndex="2"
-              align="center"
-              justify="center">
-              <Image
-                src="/placeholder-image-300x225.png"
-                srcSet="placeholder@2x.png 2x"
-                alt=""
-                className="intro-2"
-                width="100%"
-              />
-            </Flex>
-            <Flex
-              position="absolute"
-              top="0"
-              left="0"
-              width="100%"
-              height="100%"
-              zIndex="3"
-              align="center"
-              justify="center">
-              <Image
-                src="/placeholder-image-300x225.png"
-                srcSet="/placeholder-image-300x225.png"
-                alt=""
-                className="intro-3"
-                width="100%"
-              />
-            </Flex>
           </Box>
         </AspectRatio>
       </Stack>
