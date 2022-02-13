@@ -4,6 +4,7 @@ import Head from "next/head";
 import { Flex } from "@chakra-ui/react";
 
 import NewFund from "components/pages/NewFund";
+import { WalletNotConnectedOverlay } from 'components/common/WalletNotConnectedOverlay';
 
 const NewFundPage: NextPage = () => {
   return (
@@ -11,8 +12,9 @@ const NewFundPage: NextPage = () => {
       <Head>
         <title>Create a new GoFund US(T)</title>
       </Head>
-      <Flex>
+      <Flex position="relative">
         <NewFund />
+        <WalletNotConnectedOverlay />
       </Flex>
     </>
   );
