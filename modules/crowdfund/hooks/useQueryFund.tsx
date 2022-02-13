@@ -26,3 +26,25 @@ export const useQueryFundList = () => {
     data,
   };
 };
+
+export const useQueryFundListByOwner = (ownerAddress: string) => {
+  const {fundFactory} = useContracts();
+  const {client} = useTerraWebapp();
+
+  const {data, isLoading} = useQuery([ownerAddress, 'anchor_funds_by_owner'], () => {
+    return client.wasm.contractQuery<FundListResponse>(fundFactory, {
+      anchor_funds_by_owner: {
+        owner: ownerAddress,
+      },
+    });
+  });
+
+  if (isLoading || data == null) {
+    return {isLoading: true, data: null};
+  }
+
+  return {
+    isLoading: false,
+    data,
+  };
+};
