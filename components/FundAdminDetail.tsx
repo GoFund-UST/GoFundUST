@@ -1,19 +1,16 @@
-import React, {FC, useCallback, useState} from 'react';
-import {Box, Flex, HStack, Text, IconButton, Button, Heading, Link, VStack} from '@chakra-ui/react';
-import {motion} from 'framer-motion';
-
-import {truncate} from 'libs/text';
-
+import {Box, Button, Flex, HStack, IconButton, Link, Text, VStack} from '@chakra-ui/react';
+import {MsgExecuteContract} from '@terra-money/terra.js';
+import {TxResult, useConnectedWallet} from '@terra-money/wallet-provider';
 import Card from 'components/Card';
+import FundAdminAmountCard from 'components/common/FundAdminAmountCard';
+import PageLoading from 'components/common/PageLoading';
 import CloseModalIcon from 'components/icons/CloseModalIcon';
+import USTIcon from 'components/icons/USTIcon';
+import {motion} from 'framer-motion';
+import {truncate} from 'libs/text';
 import {CrowdFundConfigResponse, CrowdFundStateResponse} from 'modules/crowdfund';
 import {useCrowdFundDepositPool} from 'modules/crowdfund/hooks/useCrowdDepositPool';
-import FundAdminAmountCard from 'components/common/FundAdminAmountCard';
-import Lottie from 'react-lottie';
-import * as animationData from 'libs/animations/66643-waitwhite.json';
-import USTIcon from 'components/icons/USTIcon';
-import {TxResult, useConnectedWallet} from '@terra-money/wallet-provider';
-import {MsgExecuteContract} from '@terra-money/terra.js';
+import React, {FC, useCallback, useState} from 'react';
 
 type Props = {
   detail: CrowdFundConfigResponse;
@@ -55,35 +52,8 @@ const FundAdminDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) 
       });
   }, [connectedWallet, address]);
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
-
   if (depositPoolDetails.isLoading) {
-    return (
-      <Box m="0 auto" pt="12">
-        <Flex direction="column" gridGap="8" color="white">
-          <Lottie
-            options={defaultOptions}
-            height={400}
-            width={400}
-            isStopped={false}
-            isPaused={false}
-          />
-
-          <Card>
-            <Heading fontSize="xl" fontWeight="500" textAlign="center">
-              Loading...
-            </Heading>
-          </Card>
-        </Flex>
-      </Box>
-    );
+    return <PageLoading />;
   } else {
     return (
       <MotionBox

@@ -1,34 +1,20 @@
-import React, {FC, useCallback, useState} from 'react';
-import {
-  Box,
-  Flex,
-  HStack,
-  Text,
-  IconButton,
-  Button,
-  Heading,
-  VStack,
-  Input,
-  Link,
-} from '@chakra-ui/react';
-import {motion} from 'framer-motion';
 import {useAddress} from '@arthuryeti/terra';
-
-import {truncate} from 'libs/text';
-
+import {Box, Button, Flex, HStack, IconButton, Input, Link, Text, VStack} from '@chakra-ui/react';
+import {Coin, MsgExecuteContract} from '@terra-money/terra.js';
+import {TxResult, useConnectedWallet} from '@terra-money/wallet-provider';
 import Card from 'components/Card';
+import FundAmountCard from 'components/common/FundAmountCard';
+import PageLoading from 'components/common/PageLoading';
 import CloseModalIcon from 'components/icons/CloseModalIcon';
 import SuccessIcon from 'components/icons/SuccessIcon';
+import {motion} from 'framer-motion';
+import {truncate} from 'libs/text';
 import {CrowdFundConfigResponse, CrowdFundStateResponse} from 'modules/crowdfund';
-import FundAmountCard from 'components/common/FundAmountCard';
 import {
   useCrowdFundDepositPool,
   useCrowdFundDepositPoolBalance,
 } from 'modules/crowdfund/hooks/useCrowdDepositPool';
-import * as animationData from 'libs/animations/66643-waitwhite.json';
-import Lottie from 'react-lottie';
-import {Coin, MsgExecuteContract} from '@terra-money/terra.js';
-import {TxResult, useConnectedWallet} from '@terra-money/wallet-provider';
+import React, {FC, useCallback, useState} from 'react';
 
 type Props = {
   detail: CrowdFundConfigResponse;
@@ -128,35 +114,8 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
       });
   }, [connectedWallet, userAddress, address, detail.dp_token]);
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
-
   if (depositPoolDetails.isLoading || depositPoolBalance.isLoading) {
-    return (
-      <Box m="0 auto" pt="12">
-        <Flex direction="column" gridGap="8" color="white">
-          <Lottie
-            options={defaultOptions}
-            height={400}
-            width={400}
-            isStopped={false}
-            isPaused={false}
-          />
-
-          <Card>
-            <Heading fontSize="xl" fontWeight="500" textAlign="center">
-              Loading...
-            </Heading>
-          </Card>
-        </Flex>
-      </Box>
-    );
+    return <PageLoading />;
   } else {
     return (
       <MotionBox
