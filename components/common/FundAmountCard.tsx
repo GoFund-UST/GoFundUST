@@ -33,7 +33,9 @@ const FundAmountCard: FC<Props> = ({detail, claimable, account_details}) => {
   const address = useAddress();
   const amount = fromTerraAmount(claimable.pool_value, TWO_DIGIT_PRECISION_FORMAT);
   const earnedAmount = fromTerraAmount(claimable.earned, FOUR_DIGIT_PRECISION_FORMAT);
+  const claimableAmount = fromTerraAmount(claimable.claimable, FOUR_DIGIT_PRECISION_FORMAT);
   const accountAmount = fromTerraAmount(account_details.balance, TWO_DIGIT_PRECISION_FORMAT);
+  const isBeneficiary = detail?.beneficiary === address;
 
   return (
     <Flex flexDir="column">
@@ -52,7 +54,7 @@ const FundAmountCard: FC<Props> = ({detail, claimable, account_details}) => {
       {getDescripton(detail)}
       <Text mt="4" variant="content" fontSize="3xl">
         Beneficiary
-        {detail?.beneficiary === address ? <>{` (It's you!)`}</> : <></>}
+        {isBeneficiary ? <>{` (It's you!)`}</> : <></>}
       </Text>
       <Text variant="cardDescription" fontSize="xl">
         {detail.beneficiary}
@@ -70,6 +72,12 @@ const FundAmountCard: FC<Props> = ({detail, claimable, account_details}) => {
         <span>Your Amount </span>
         <span>${accountAmount} </span>
       </Text>
+      {isBeneficiary && (
+        <Text variant="cardDescription" fontSize="xl">
+          <span>Claimable </span>
+          <span>${claimableAmount}</span>
+        </Text>
+      )}
     </Flex>
   );
 };
