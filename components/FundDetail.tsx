@@ -16,13 +16,14 @@ import Card from 'components/Card';
 import FundAmountCard from 'components/common/FundAmountCard';
 import PageLoading from 'components/common/PageLoading';
 import {motion} from 'framer-motion';
-import {CrowdFundConfigResponse, CrowdFundStateResponse} from 'modules/crowdfund';
+import {CrowdFundConfigResponse, CrowdFundStateResponse, useCrowdFund} from 'modules/crowdfund';
 import {
   useCrowdFundDepositPool,
   useCrowdFundDepositPoolBalance,
 } from 'modules/crowdfund/hooks/useCrowdDepositPool';
 import {usePostContributeFund} from 'modules/crowdfund/hooks/usePostContributeFund';
 import {usePostRedeemFund} from 'modules/crowdfund/hooks/usePostRedeemFund';
+import {useWithdrawEarnings} from 'modules/crowdfund/hooks/useWithdrawEarnings';
 import React, {FC, useCallback, useState} from 'react';
 import {useForm} from 'react-hook-form';
 
@@ -40,6 +41,7 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
   const connectedWallet = useConnectedWallet();
   const depositPoolDetails = useCrowdFundDepositPool(detail.dp_token);
   const depositPoolBalance = useCrowdFundDepositPoolBalance(detail.dp_token, userAddress);
+  const {data: fundData} = useCrowdFund(address);
   const [txResult, setTxResult] = useState<TxResult | null>(null);
   const [txError, setTxError] = useState<string | null>(null);
   const form = useForm<{amount: number}>({
@@ -58,6 +60,10 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
     redeemAmount: form.watch('amount'),
     contractAddress: detail.dp_token,
     bodyContract: address,
+  });
+
+  const {submit: submitWithdraw} = useWithdrawEarnings({
+    contractAddress: address,
   });
 
   const fundProject = useCallback(async () => {
@@ -83,6 +89,71 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
       setTxError(error.toString);
     }
   }, [submitRedeem]);
+
+  const withdrawEarnings = useCallback(async () => {
+    setTxError(null);
+    setTxResult(null);
+
+    try {
+      const res = await submitWithdraw();
+      setTxResult(res);
+    } catch (error) {
+      setTxError(error.toString);
+    }
+  }, [submitWithdraw]);
+
+  const isAdmin = useCallback(() => {
+    return fundData.beneficiary === userAddress;
+  }, [fundData.beneficiary, userAddress]);
+
+  const getAdminButtons = () => {
+    return (
+      <>
+        {claimable.claimable > 0 && (
+          <Button
+            variant="primary"
+            width="256px"
+            onClick={e => {
+              e.preventDefault();
+              withdrawEarnings();
+            }}>
+            Withdraw earnings
+          </Button>
+        )}
+      </>
+    );
+  };
+
+  const getUserButtons = () => {
+    return (
+      <>
+        <Button
+          variant="primary"
+          width="256px"
+          m="20px"
+          disabled={!form?.formState?.isValid}
+          onClick={e => {
+            e.preventDefault();
+            fundProject();
+          }}>
+          Fund
+        </Button>
+        {depositPoolBalance.data.balance > 0 && (
+          <Button
+            variant="primary"
+            width="256px"
+            m="20px"
+            disabled={!form?.formState?.isValid}
+            onClick={e => {
+              e.preventDefault();
+              redeem();
+            }}>
+            Redeem
+          </Button>
+        )}
+      </>
+    );
+  };
 
   if (depositPoolDetails.isLoading || depositPoolBalance.isLoading) {
     return <PageLoading />;
@@ -115,32 +186,8 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
               />
               <FormErrorMessage>{form.formState.errors?.amount?.message}</FormErrorMessage>
             </FormControl>
-            <Flex justifyContent="space-evenly">
-              <Button
-                variant="primary"
-                width="256px"
-                m="20px"
-                disabled={!form?.formState?.isValid}
-                onClick={e => {
-                  e.preventDefault();
-                  fundProject();
-                }}>
-                Fund
-              </Button>
-              {depositPoolBalance.data.balance > 0 && (
-                <Button
-                  variant="primary"
-                  width="256px"
-                  m="20px"
-                  disabled={!form?.formState?.isValid}
-                  onClick={e => {
-                    e.preventDefault();
-                    redeem();
-                  }}>
-                  Redeem
-                </Button>
-              )}
-            </Flex>
+            <Flex justifyContent="space-evenly">{getUserButtons()}</Flex>
+            <Flex justifyContent="space-evenly">{isAdmin() && getAdminButtons()}</Flex>
           </form>
           {connectedWallet && txResult && (
             <Flex justifyContent="center">
