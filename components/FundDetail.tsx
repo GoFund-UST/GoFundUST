@@ -103,8 +103,8 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
   }, [submitWithdraw]);
 
   const isAdmin = useCallback(() => {
-    return fundData.beneficiary === userAddress;
-  }, [fundData.beneficiary, userAddress]);
+    return fundData.beneficiary === userAddress || fundData.fee_collector === userAddress;
+  }, [fundData.beneficiary, fundData.fee_collector, userAddress]);
 
   const getAdminButtons = () => {
     return (
