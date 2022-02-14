@@ -111,7 +111,8 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
       <>
         {claimable.claimable > 0 && (
           <Button
-            variant="primary"
+            mt={4}
+            variant="sencadry"
             width="256px"
             onClick={e => {
               e.preventDefault();
