@@ -1,6 +1,18 @@
 import {useAddress} from '@arthuryeti/terra';
-import {Box, Button, Flex, HStack, IconButton, Input, Link, Text, VStack} from '@chakra-ui/react';
-import {Coin, MsgExecuteContract} from '@terra-money/terra.js';
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  HStack,
+  IconButton,
+  Input,
+  Link,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import {TxResult, useConnectedWallet} from '@terra-money/wallet-provider';
 import Card from 'components/Card';
 import FundAmountCard from 'components/common/FundAmountCard';
@@ -14,7 +26,10 @@ import {
   useCrowdFundDepositPool,
   useCrowdFundDepositPoolBalance,
 } from 'modules/crowdfund/hooks/useCrowdDepositPool';
+import {usePostContributeFund} from 'modules/crowdfund/hooks/usePostContributeFund';
+import {usePostRedeemFund} from 'modules/crowdfund/hooks/usePostRedeemFund';
 import React, {FC, useCallback, useState} from 'react';
+import {useForm} from 'react-hook-form';
 
 type Props = {
   detail: CrowdFundConfigResponse;
@@ -26,93 +41,54 @@ type Props = {
 const MotionBox = motion(Box);
 
 const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
-  const truncatedAddress = truncate(address);
   const userAddress = useAddress();
   const depositPoolDetails = useCrowdFundDepositPool(detail.dp_token);
   const depositPoolBalance = useCrowdFundDepositPoolBalance(detail.dp_token, userAddress);
   const [txResult, setTxResult] = useState<TxResult | null>(null);
   const [txError, setTxError] = useState<string | null>(null);
+  const form = useForm<{amount: number}>({
+    mode: 'onChange',
+    defaultValues: {
+      amount: 0,
+    },
+  });
 
   const connectedWallet = useConnectedWallet();
 
-  const fundProject = useCallback(() => {
+  const {submit: submitContribution} = usePostContributeFund({
+    fundAmount: form.watch('amount'),
+    contractAddress: address,
+  });
+
+  const {submit: submitRedeem} = usePostRedeemFund({
+    redeemAmount: form.watch('amount'),
+    contractAddress: detail.dp_token,
+    bodyContract: address,
+  });
+
+  const fundProject = useCallback(async () => {
     setTxError(null);
     setTxResult(null);
-    let fundAmount = document.getElementById('fundamount') as HTMLInputElement;
-    let fundAmountStr = fundAmount?.value;
-    if (!fundAmountStr) {
-      alert('you need to enter an amount');
-      return;
+
+    try {
+      const res = await submitContribution();
+      setTxResult(res);
+    } catch (error) {
+      setTxError(error.toString);
     }
-    let fundNum = parseFloat(fundAmountStr);
-    if (fundNum <= 0.0) {
-      alert('you need a numeric above zero.');
-    }
-    let coin = new Coin('uusd', fundNum * 1_000_000);
+  }, [submitContribution]);
 
-    let msg = new MsgExecuteContract(
-      userAddress,
-      address,
-      {
-        deposit: {},
-      },
-      [coin]
-    );
-
-    // eslint-disable-next-line no-console
-    console.log(msg.toJSON());
-    return connectedWallet
-      .post({memo: 'GoFund US(T)', msgs: [msg]})
-      .then(txResultReturned => {
-        // eslint-disable-next-line no-console
-        console.log(txResultReturned);
-        setTxResult(txResultReturned);
-      })
-      .catch(error => {
-        // eslint-disable-next-line no-console
-        console.log('ERROR', error);
-        setTxError(error.toString);
-      });
-  }, [connectedWallet, userAddress, address]);
-
-  const redeem = useCallback(() => {
+  const redeem = useCallback(async () => {
     setTxError(null);
     setTxResult(null);
-    let fundAmount = document.getElementById('fundamount') as HTMLInputElement;
-    let fundAmountStr = fundAmount?.value;
-    if (!fundAmountStr) {
-      alert('you need to enter an amount');
-      return;
-    }
-    let fundNum = parseFloat(fundAmountStr);
-    if (fundNum <= 0.0) {
-      alert('you need a numeric above zero.');
-    }
-    const amount = fundNum * 1_000_000;
 
-    let msg = new MsgExecuteContract(userAddress, detail.dp_token, {
-      send: {
-        msg: 'eyJyZWRlZW0iOnt9fQ==',
-        amount: amount.toString(10),
-        contract: address,
-      },
-    });
-
-    // eslint-disable-next-line no-console
-    console.log(msg.toJSON());
-    return connectedWallet
-      .post({memo: 'GoFund US(T)', msgs: [msg]})
-      .then(txResultReturned => {
-        // eslint-disable-next-line no-console
-        console.log(txResultReturned);
-        setTxResult(txResultReturned);
-      })
-      .catch(error => {
-        // eslint-disable-next-line no-console
-        console.log('ERROR', error);
-        setTxError(error.toString);
-      });
-  }, [connectedWallet, userAddress, address, detail.dp_token]);
+    try {
+      const res = await submitRedeem();
+      setTxResult(res);
+    } catch (error) {
+      setTxError(error.toString);
+    }
+  }, [submitRedeem]);
 
   if (depositPoolDetails.isLoading || depositPoolBalance.isLoading) {
     return <PageLoading />;
@@ -153,7 +129,7 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
             token={detail.dp_token}
             money_market={detail.money_market}
             claimable={claimable}
-            description={truncatedAddress}
+            description={truncate(address)}
             token_details={depositPoolDetails.data}
             account_details={depositPoolBalance.data}
           />
@@ -162,10 +138,23 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
               <VStack>
                 <form color="black">
                   <label>$UST</label>
-                  <Input type="text" id="fundamount" name="fundamount" defaultValue={0} />
+                  <FormControl mt={4} isInvalid={!!form.formState.errors.amount}>
+                    <FormLabel htmlFor="amount">Fund name</FormLabel>
+                    <Input
+                      type="number"
+                      id="amount"
+                      {...form.register('amount', {
+                        required: 'This is required',
+                        min: {value: 0.1, message: 'Min value is 0.1'},
+                        valueAsNumber: true,
+                      })}
+                    />
+                    <FormErrorMessage>{form.formState.errors?.amount?.message}</FormErrorMessage>
+                  </FormControl>
                   <Button
                     variant="primary"
                     width="256px"
+                    disabled={!form?.formState?.isValid}
                     onClick={e => {
                       e.preventDefault();
                       fundProject();
@@ -176,6 +165,7 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
                     <Button
                       variant="primary"
                       width="256px"
+                      disabled={!form?.formState?.isValid}
                       onClick={e => {
                         e.preventDefault();
                         redeem();
@@ -192,7 +182,7 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
                   href={`https://finder.terra.money/${connectedWallet.network.chainID}/tx/${txResult.result.txhash}`}
                   target="_blank"
                   rel="noreferrer"
-                  external={true}>
+                  external="true">
                   Open Tx Result in Terra Finder
                 </Link>
               </Text>

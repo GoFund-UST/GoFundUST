@@ -39,9 +39,9 @@ const Fund: FC = () => {
   }
 
   return (
-    <Box m="0 auto" pt="12">
-      <Flex gridGap="8">
-        <Box w="container.sm">{renderFund()}</Box>
+    <Box>
+      <Flex flex="1" flexWrap={'wrap'} justifyContent="center">
+        <Box>{renderFund()}</Box>
       </Flex>
     </Box>
   );
