@@ -24,7 +24,7 @@
     "@terra-money/wallet-provider": "^3.3.0",
     "bignumber.js": "^9.0.2",
     "dayjs": "^1.10.7",
-    "follow-redirects": ">=1.14.7",
+    "follow-redirects": ">=1.14.8",
     "framer-motion": "^5.4.5",
     "graphql-request": "^3.7.0",
     "lodash": "^4.17.21",
