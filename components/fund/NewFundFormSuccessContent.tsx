@@ -1,6 +1,6 @@
 import {Flex, Link, Text} from '@chakra-ui/react';
 import useFinder from 'hooks/useFinder';
-import {truncate} from 'libs/text';
+import {truncate} from 'utils/text';
 import {FC} from 'react';
 
 type Props = {txHash: string; fundAddress: string};

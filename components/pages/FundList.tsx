@@ -1,7 +1,7 @@
 import {Box, Button, Flex, Grid, GridItem, Text} from '@chakra-ui/react';
 import Card from 'components/Card';
 import PageLoading from 'components/common/PageLoading';
-import {truncate} from 'libs/text';
+import {truncate} from 'utils/text';
 import {FundListResponse} from 'modules/crowdfund/hooks/useQueryFund';
 import NextLink from 'next/link';
 import React from 'react';

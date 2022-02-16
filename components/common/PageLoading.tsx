@@ -1,7 +1,7 @@
 import {Box, Flex, Heading} from '@chakra-ui/react';
 import Card from 'components/Card';
 import React from 'react';
-import * as animationData from 'libs/animations/66643-waitwhite.json';
+import * as animationData from 'utils/animations/66643-waitwhite.json';
 import Lottie from 'react-lottie';
 
 const defaultOptions = {

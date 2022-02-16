@@ -9,7 +9,7 @@ import FormSuccess from 'components/common/FormSuccess';
 import NewFundFormInitial from 'components/fund/NewFundFormInitial';
 import NewFundFormSuccessContent from 'components/fund/NewFundFormSuccessContent';
 import useDebounceValue from 'hooks/useDebounceValue';
-import {objectToArrayOfTuple} from 'libs/helpers';
+import {objectToArrayOfTuple} from 'utils/helpers';
 import {useCreateFund} from 'modules/crowdfund/hooks/useCreateFund';
 import {useRouter} from 'next/router';
 import React, {FC, useCallback, useEffect, useState} from 'react';
