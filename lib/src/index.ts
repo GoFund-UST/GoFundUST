@@ -1,3 +1,3 @@
-import Test from './Test';
+import ContributeToFund from './ContributeToFund';
 
-export {Test};
+export {ContributeToFund};

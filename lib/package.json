@@ -1,6 +1,6 @@
 {
   "name": "@gofundust/components",
-  "version": "0.1.9",
+  "version": "0.1.12",
   "description": "GoFundUst components to use in your react project.",
   "private": false,
   "main": "./dist/cjs/index.js",
@@ -13,6 +13,13 @@
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "prepublishOnly": "npm run build"
   },
+  "dependencies": {
+    "@chakra-ui/react": "^1.7.3",
+    "@chakra-ui/icons": "^1.1.1",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "framer-motion": "^6.2.6"
+  },
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -20,8 +27,6 @@
   "devDependencies": {
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "typescript": "^4.5.5"
   },
   "files": [
