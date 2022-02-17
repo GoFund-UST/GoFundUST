@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "author": "PFC / Originally forked from itey.arthur@gmail.com",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
