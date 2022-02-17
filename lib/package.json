@@ -1,6 +1,6 @@
 {
   "name": "@gofundust/components",
-  "version": "0.1.30",
+  "version": "0.1.32",
   "description": "GoFundUst components to use in your react project.",
   "private": false,
   "main": "./dist/cjs/lib/src/index.js",
