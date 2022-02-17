@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useTerraWebapp } from "@arthuryeti/terra";
-import { CrowdFundConfigResponse } from "modules/crowdfund";
+import { CrowdFundConfigResponse } from "../../crowdfund";
 
 export const useCrowdFund = (address: string | undefined) => {
   // const [value, setValue] = useState(null);

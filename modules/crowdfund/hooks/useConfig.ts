@@ -1,7 +1,7 @@
 import {useTerraWebapp} from '@arthuryeti/terra';
 import {useQuery} from 'react-query';
 
-import {useContracts} from 'modules/common';
+import {useContracts} from '../../common';
 
 export type CrowdFundConfigResponse = {
   beneficiary: string;

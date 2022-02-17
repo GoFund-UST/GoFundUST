@@ -1,9 +1,8 @@
 import { num, useTerraWebapp } from "@arthuryeti/terra";
 import { useQuery } from "react-query";
 
-import { useContracts } from "modules/common";
 import { Coin } from "@terra-money/terra.js";
-import { ONE_TOKEN } from "constants/constants";
+import { ONE_TOKEN } from "../../../constants/constants";
 
 type Response = {
   astro_token: string;
