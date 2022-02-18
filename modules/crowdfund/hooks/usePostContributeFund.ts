@@ -1,7 +1,7 @@
 import {useAddress} from '@arthuryeti/terra';
 import {Coin} from '@terra-money/terra.js';
 import {TxResult, useConnectedWallet} from '@terra-money/wallet-provider';
-import {createContributeFundMsgs} from 'modules/crowdfund/createContributeFundMsg';
+import {createContributeFundMsgs} from '../createContributeFundMsg';
 import {useMemo} from 'react';
 
 export type State = {
