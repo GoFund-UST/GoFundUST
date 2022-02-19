@@ -63,7 +63,7 @@ const Component: React.FC<{fundAddress: string}> = ({fundAddress}) => {
           borderRadius: '1rem',
         }}>
         <Card>
-          {true ? (
+          {isLoading ? (
             <Flex justifyContent="center" >
               <LoadingIcon/>
             </Flex>
