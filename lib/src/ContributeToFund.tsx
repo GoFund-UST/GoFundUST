@@ -9,14 +9,17 @@ import {
   InputGroup,
   InputRightElement,
   Text,
+  Tooltip,
 } from '@chakra-ui/react';
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import Card from '../../components/Card';
 import {useCrowdFund} from '../../modules/crowdfund';
 import {usePostContributeFund} from '../../modules/crowdfund/hooks/usePostContributeFund';
 import LibWrapper from './util/LibWrapper';
 import LoadingIcon from '../../components/icons/LoadingIcon';
+
+type FundButtonText = 'Fund' | '✔️' | '❌';
 
 const ContributeToFund: React.FC<{fundAddress: string}> = ({fundAddress}) => {
   return (
@@ -28,6 +31,8 @@ const ContributeToFund: React.FC<{fundAddress: string}> = ({fundAddress}) => {
 
 const Component: React.FC<{fundAddress: string}> = ({fundAddress}) => {
   const {isLoading, data} = useCrowdFund(fundAddress);
+  const [fundButtonText, setFundButtonText] = useState<FundButtonText>('Fund');
+  const hasTxCompleted = fundButtonText === '✔️' || fundButtonText === '❌';
   const form = useForm<{amount: number}>({
     mode: 'onChange',
     defaultValues: {
@@ -35,19 +40,29 @@ const Component: React.FC<{fundAddress: string}> = ({fundAddress}) => {
     },
   });
 
+  const getFundButtonTooltip = (): string => {
+    switch (fundButtonText) {
+      case '✔️':
+        return 'Transaction has succeed!';
+      case '❌':
+        return 'Transaction has failed!';
+      default:
+        return '';
+    }
+  };
+
   const {submit: submitContribution} = usePostContributeFund({
     fundAmount: form.watch('amount'),
     contractAddress: fundAddress,
   });
 
   const fundProject = useCallback(async () => {
-    // setTxError(null);
-    // setTxResult(null);
     try {
-      const res = await submitContribution();
-      // setTxResult(res);
+      await submitContribution();
+      setFundButtonText('✔️');
     } catch (error) {
-      // setTxError(error.toString);
+      console.error(error);
+      setFundButtonText('❌');
     }
   }, [submitContribution]);
 
@@ -64,8 +79,8 @@ const Component: React.FC<{fundAddress: string}> = ({fundAddress}) => {
         }}>
         <Card>
           {isLoading ? (
-            <Flex justifyContent="center" >
-              <LoadingIcon/>
+            <Flex justifyContent="center">
+              <LoadingIcon />
             </Flex>
           ) : (
             <>
@@ -79,31 +94,33 @@ const Component: React.FC<{fundAddress: string}> = ({fundAddress}) => {
               <form>
                 <FormControl isInvalid={!!form.formState.errors.amount}>
                   <FormLabel htmlFor="amount">Amount ($UST)</FormLabel>
-                  <InputGroup size="md">
-                    <Input
-                      type="number"
-                      id="amount"
-                      {...form.register('amount', {
-                        required: 'This is required',
-                        min: {value: 0.1, message: 'Min value is 0.1'},
-                        valueAsNumber: true,
-                      })}
-                    />
-                    <InputRightElement width="4.5rem">
-                      <Button
-                        variant="simple"
-                        bg="brand.purple"
-                        color="white"
-                        width="256px"
-                        disabled={!form?.formState?.isValid}
-                        onClick={e => {
-                          e.preventDefault();
-                          fundProject();
-                        }}>
-                        Fund
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
+                  <Tooltip label={getFundButtonTooltip()} fontSize="md" placement="top">
+                    <InputGroup size="md">
+                      <Input
+                        type="number"
+                        id="amount"
+                        {...form.register('amount', {
+                          required: 'This is required',
+                          min: {value: 0.1, message: 'Min value is 0.1'},
+                          valueAsNumber: true,
+                        })}
+                      />
+                      <InputRightElement width="4.5rem">
+                        <Button
+                          variant="simple"
+                          bg="brand.purple"
+                          color="white"
+                          width="256px"
+                          disabled={!form?.formState?.isValid || hasTxCompleted}
+                          onClick={e => {
+                            e.preventDefault();
+                            fundProject();
+                          }}>
+                          {fundButtonText}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                  </Tooltip>
                   <FormErrorMessage>{form.formState.errors?.amount?.message}</FormErrorMessage>
                 </FormControl>
               </form>
