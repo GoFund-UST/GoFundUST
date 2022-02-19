@@ -1,4 +1,4 @@
-import {ThemeProvider} from '@chakra-ui/react';
+import {ThemeProvider, CSSReset} from '@chakra-ui/react';
 import React from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import theme from '../../../theme';
@@ -10,6 +10,7 @@ const LibWrapper: React.FC = ({children}) => {
     <div id={id}>
       <QueryClientProvider client={queryClient} contextSharing={true}>
         <ThemeProvider theme={theme} cssVarsRoot={`#${id}`}>
+        <CSSReset />
           {children}
         </ThemeProvider>
       </QueryClientProvider>

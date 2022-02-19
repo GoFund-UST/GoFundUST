@@ -1,6 +1,7 @@
 import {
   Button,
   Divider,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -9,26 +10,23 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react';
-import {Wallet} from '@terra-money/wallet-provider';
 import React, {useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 import Card from '../../components/Card';
 import {useCrowdFund} from '../../modules/crowdfund';
 import {usePostContributeFund} from '../../modules/crowdfund/hooks/usePostContributeFund';
 import LibWrapper from './util/LibWrapper';
+import LoadingIcon from '../../components/icons/LoadingIcon';
 
-const ContributeToFund: React.FC<{fundAddress: string; wallet: Wallet}> = ({
-  fundAddress,
-  wallet,
-}) => {
+const ContributeToFund: React.FC<{fundAddress: string}> = ({fundAddress}) => {
   return (
     <LibWrapper>
-      <Component fundAddress={fundAddress} wallet={wallet} />
+      <Component fundAddress={fundAddress} />
     </LibWrapper>
   );
 };
 
-const Component: React.FC<{fundAddress: string; wallet: Wallet}> = ({fundAddress, wallet}) => {
+const Component: React.FC<{fundAddress: string}> = ({fundAddress}) => {
   const {isLoading, data} = useCrowdFund(fundAddress);
   const form = useForm<{amount: number}>({
     mode: 'onChange',
@@ -65,44 +63,52 @@ const Component: React.FC<{fundAddress: string; wallet: Wallet}> = ({fundAddress
           borderRadius: '1rem',
         }}>
         <Card>
-          <Text variant="content" fontSize="3xl">
-            Pool Name
-          </Text>
-          <Text variant="cardDescription" fontSize="xl">
-            {data?.pool_name}
-          </Text>
-          <Divider mt="8" mb="8" />
-          <form>
-            <FormControl isInvalid={!!form.formState.errors.amount}>
-              <FormLabel htmlFor="amount">Amount ($UST)</FormLabel>
-              <InputGroup size="md">
-                <Input
-                  type="number"
-                  id="amount"
-                  {...form.register('amount', {
-                    required: 'This is required',
-                    min: {value: 0.1, message: 'Min value is 0.1'},
-                    valueAsNumber: true,
-                  })}
-                />
-                <InputRightElement width="4.5rem">
-                  <Button
-                    variant="simple"
-                    bg="brand.purple"
-                    color="white"
-                    width="256px"
-                    disabled={!form?.formState?.isValid}
-                    onClick={e => {
-                      e.preventDefault();
-                      fundProject();
-                    }}>
-                    Fund
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-              <FormErrorMessage>{form.formState.errors?.amount?.message}</FormErrorMessage>
-            </FormControl>
-          </form>
+          {true ? (
+            <Flex justifyContent="center" >
+              <LoadingIcon/>
+            </Flex>
+          ) : (
+            <>
+              <Text variant="content" fontSize="3xl">
+                Pool Name
+              </Text>
+              <Text variant="cardDescription" fontSize="xl">
+                {data?.pool_name}
+              </Text>
+              <Divider mt="8" mb="8" />
+              <form>
+                <FormControl isInvalid={!!form.formState.errors.amount}>
+                  <FormLabel htmlFor="amount">Amount ($UST)</FormLabel>
+                  <InputGroup size="md">
+                    <Input
+                      type="number"
+                      id="amount"
+                      {...form.register('amount', {
+                        required: 'This is required',
+                        min: {value: 0.1, message: 'Min value is 0.1'},
+                        valueAsNumber: true,
+                      })}
+                    />
+                    <InputRightElement width="4.5rem">
+                      <Button
+                        variant="simple"
+                        bg="brand.purple"
+                        color="white"
+                        width="256px"
+                        disabled={!form?.formState?.isValid}
+                        onClick={e => {
+                          e.preventDefault();
+                          fundProject();
+                        }}>
+                        Fund
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  <FormErrorMessage>{form.formState.errors?.amount?.message}</FormErrorMessage>
+                </FormControl>
+              </form>
+            </>
+          )}
         </Card>
       </div>
     </>
