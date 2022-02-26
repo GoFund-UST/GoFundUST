@@ -36,7 +36,7 @@ type Props = {
 
 const MotionBox = motion(Box);
 
-const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
+const FundDetail: FC<Props> = ({detail, claimable, address}) => {
   const userAddress = useAddress();
   const connectedWallet = useConnectedWallet();
   const depositPoolDetails = useCrowdFundDepositPool(detail.dp_token);
@@ -204,6 +204,23 @@ const FundDetail: FC<Props> = ({detail, claimable, address, onCloseClick}) => {
             </Flex>
           )}
           {txError && <Text color="red.500">{txError}</Text>}
+          {detail.nft_contract && detail.nft_collection_active && detail.nft_collection_redeemed && (
+            <>
+              <Text mt="4" variant="content" fontSize="lg">
+                NFT
+              </Text>
+              <Text>
+                Remember to add the GoFund US(T) NFT ({detail.nft_contract}) to station to see it.
+              </Text>
+            </>
+          )}
+          <Text mt="4" variant="content" fontSize="lg">
+            Fund Token
+          </Text>
+          <Text>
+            You can also add Token ({detail.dp_token}) in the token&apos;s section to station to see
+            your deposit
+          </Text>
         </Card>
       </MotionBox>
     );
