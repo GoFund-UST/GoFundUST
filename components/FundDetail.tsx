@@ -218,8 +218,8 @@ const FundDetail: FC<Props> = ({detail, claimable, address}) => {
             Fund Token
           </Text>
           <Text>
-            You can also add Token ({detail.dp_token}) in the token&apos;s section to station to see
-            your deposit
+            You can also add the fund&apos;s token (<b>{detail.dp_token}</b>) in the token&apos;s
+            section to station to see your deposit
           </Text>
         </Card>
       </MotionBox>
