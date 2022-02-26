@@ -159,6 +159,11 @@ const FundDetail: FC<Props> = ({detail, claimable, address}) => {
   if (depositPoolDetails.isLoading || depositPoolBalance.isLoading) {
     return <PageLoading />;
   } else {
+    const has_nft =
+      detail.nft_contract &&
+      detail.nft_collection_active != undefined &&
+      detail.nft_collection_redeemed != undefined;
+
     return (
       <MotionBox
         initial={{opacity: 0, scale: 0.8}}
@@ -204,7 +209,7 @@ const FundDetail: FC<Props> = ({detail, claimable, address}) => {
             </Flex>
           )}
           {txError && <Text color="red.500">{txError}</Text>}
-          {detail.nft_contract && detail.nft_collection_active && detail.nft_collection_redeemed && (
+          {has_nft && (
             <>
               <Text mt="4" variant="content" fontSize="lg">
                 NFT
@@ -214,6 +219,7 @@ const FundDetail: FC<Props> = ({detail, claimable, address}) => {
               </Text>
             </>
           )}
+
           <Text mt="4" variant="content" fontSize="lg">
             Fund Token
           </Text>
