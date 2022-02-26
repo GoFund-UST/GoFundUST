@@ -60,6 +60,17 @@ const FundAmountCard: FC<Props> = ({detail, claimable, account_details}) => {
       <Text variant="cardDescription" fontSize="xl">
         {detail.beneficiary}
       </Text>
+      {detail.nft_contract && detail.nft_collection_active && detail.nft_collection_redeemed && (
+        <>
+          <Text mt="4" variant="content" fontSize="3xl">
+            NFT
+          </Text>
+          <Text>
+            Remember to add {detail.nft_contract} to station to see the NFT. TBD call
+            tokens_in_collection on active/redeemed and show them here
+          </Text>
+        </>
+      )}
       <Text mt="4" variant="content" fontSize="3xl">
         Pool Details
       </Text>

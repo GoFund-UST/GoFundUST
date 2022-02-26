@@ -17,7 +17,7 @@ export const OwnedFundsPage: NextPage = () => {
         <title>Owned Funds</title>
       </Head>
       <Container my="12" px={['6', null, '12']} position="relative" maxWidth="container.xl">
-        <FundList data={data} isLoading={isLoading} />
+        <FundList data={data} isLoading={isLoading} address={address} />
         <WalletNotConnectedOverlay />
       </Container>
     </>
