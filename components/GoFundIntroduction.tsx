@@ -36,7 +36,7 @@ const GoFundIntroduction = () => {
             <Link color="#83B3FD" href="https://example.com/docs/go/here" isExternal={true}>
               Learn More
             </Link>{' '}
-            to learn more about GoFund Us(T).
+            to learn more about GoFund US(T).
           </Text>
           <NextLink href="/new" passHref={true}>
             <Button as="a" variant="primary" width="256px">
