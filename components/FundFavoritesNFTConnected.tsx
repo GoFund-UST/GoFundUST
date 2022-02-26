@@ -37,7 +37,7 @@ const FundFavoritesNFTConnected: FC<Props> = ({factoryConfig}) => {
       // @ts-ignore
       return (
         <Box>
-          <CardHeader label="List of popular GoFunds" />
+          <CardHeader label="List of GoFunds you have interacted with" />
           <Card p={['6', null, null, '12']}>
             {alert}
             <Text>
