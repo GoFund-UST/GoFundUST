@@ -16,6 +16,11 @@ are viewable here - [GoFund-UST-contracts](https://github.com/PFC-Validator/GoFu
 
 Runs the app in the development mode.
 
+# Fund contribution standalone component
+There's also a standalone component which you can embed on any React project.
+
+`npm i @gofundust/components`
+
 # NOTE
 This project was forked from [Astroport Lockdrop](https://github.com/astroport-fi/lockdrop-frontend)
 Kudos goes to them for open sourcing it.
