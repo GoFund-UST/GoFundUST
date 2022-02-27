@@ -1,10 +1,10 @@
 {
   "mainnet": {
     "tokens": {
-      "terra1l5p2vdcwg7vd67d6s93pe2t60pnlxt49ndkh4j": {
+      "terra1u3uxd530nd62gjerwlsth08x776fej3eeer3vd": {
         "protocol": "Go Fund US(T)",
         "symbol": "GoFundUST",
-        "token": "terra1l5p2vdcwg7vd67d6s93pe2t60pnlxt49ndkh4j",
+        "token": "terra1w4n7szdxs5gd0cj0e6ns5d2hqpjxu70yptqk90",
         "icon": "/tokens/gofund.png"
       },
       "uluna": {
@@ -25,10 +25,10 @@
   },
   "testnet": {
     "tokens": {
-      "terra1l5p2vdcwg7vd67d6s93pe2t60pnlxt49ndkh4j": {
+      "terra1vd04tm25d4r0uey38d6v870ehpdsptdrxpxpqw": {
         "protocol": "Go Fund US(T)",
         "symbol": "GoFundUST",
-        "token": "terra1l5p2vdcwg7vd67d6s93pe2t60pnlxt49ndkh4j",
+        "token": "terra1vd04tm25d4r0uey38d6v870ehpdsptdrxpxpqw",
         "icon": "/tokens/gofund.png"
       },
       "uluna": {

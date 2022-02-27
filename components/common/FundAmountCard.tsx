@@ -60,6 +60,7 @@ const FundAmountCard: FC<Props> = ({detail, claimable, account_details}) => {
       <Text variant="cardDescription" fontSize="xl">
         {detail.beneficiary}
       </Text>
+
       <Text mt="4" variant="content" fontSize="3xl">
         Pool Details
       </Text>

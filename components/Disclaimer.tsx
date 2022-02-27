@@ -10,10 +10,12 @@ const Disclaimer = () => {
 
       <Card p={['6', null, null, '12']}>
         <Text>
-          This project is not affiliated with Astroport. The smart contracts used in this project
-          are under heavy development, and have not been audited. The authors of this project plan
-          to collect fees from the use of this website. If you are a charity, feel free to contact
-          the authors, to create fee-free alternatives
+          This project is not affiliated with any other protocol or service. The smart contracts
+          used in this project are under heavy development, and have not been audited. The authors
+          of this project collect fees from the use of this website.
+        </Text>
+        <Text>
+          If you are a charity, feel free to contact the authors, to discuss fee-free alternatives
         </Text>
         <Text>
           <Link href="/disclaimer">legal disclaimer (draft)</Link>

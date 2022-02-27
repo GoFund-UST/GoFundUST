@@ -6,7 +6,11 @@ import {FundListResponse} from 'modules/crowdfund/hooks/useQueryFund';
 import NextLink from 'next/link';
 import React from 'react';
 
-const FundList: React.FC<{data: FundListResponse; isLoading: boolean}> = ({data, isLoading}) => {
+const FundList: React.FC<{
+  data: FundListResponse;
+  isLoading: boolean;
+  address: string | undefined;
+}> = ({data, isLoading, address}) => {
   if (isLoading) {
     return <PageLoading />;
   }
@@ -44,6 +48,13 @@ const FundList: React.FC<{data: FundListResponse; isLoading: boolean}> = ({data,
                         Fund Details
                       </Button>
                     </NextLink>
+                    {fund.beneficiary == address && (
+                      <NextLink href={`admin/${fund.contract}`} passHref>
+                        <Button as="a" variant="primary" width="256px">
+                          Setup NFT
+                        </Button>
+                      </NextLink>
+                    )}
                   </Flex>
                 </Card>
               </div>
