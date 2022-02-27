@@ -44,13 +44,13 @@ const FundList: React.FC<{
                   </Grid>
                   <Flex justify="flex-end" mt="50px">
                     <NextLink href={`fund/${fund.contract}`} passHref>
-                      <Button as="a" variant="primary" width="256px">
+                      <Button as="a" variant="primary" width="256px" mx="2">
                         Fund Details
                       </Button>
                     </NextLink>
                     {fund.beneficiary == address && (
                       <NextLink href={`admin/${fund.contract}`} passHref>
-                        <Button as="a" variant="primary" width="256px">
+                        <Button as="a" variant="primary" width="256px" mx="2">
                           Setup NFT
                         </Button>
                       </NextLink>
