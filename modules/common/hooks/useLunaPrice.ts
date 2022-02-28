@@ -1,11 +1,11 @@
-import { num, useTerraWebapp } from "@arthuryeti/terra";
-import { useQuery } from "react-query";
+import {num, useTerraWebapp} from '@arthuryeti/terra';
+import {useQuery} from 'react-query';
 
-import { Coin } from "@terra-money/terra.js";
-import { ONE_TOKEN } from "../../../constants/constants";
+import {Coin} from '@terra-money/terra.js';
+import {ONE_TOKEN} from '../../../constants/constants';
 
 type Response = {
-  astro_token: string;
+  //astro_token: string;
   auction_contract: string;
   deposit_window: number;
   generator: string;
@@ -20,10 +20,10 @@ type Response = {
 };
 
 export const useLunaPrice = () => {
-  const { client } = useTerraWebapp();
+  const {client} = useTerraWebapp();
 
-  const { data, isLoading } = useQuery("luna", () => {
-    return client.market.swapRate(new Coin("uluna", ONE_TOKEN), "uusd");
+  const {data, isLoading} = useQuery('luna', () => {
+    return client.market.swapRate(new Coin('uluna', ONE_TOKEN), 'uusd');
   });
 
   if (isLoading || data == null) {

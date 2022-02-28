@@ -118,13 +118,13 @@ export interface IButton {
   type: string;
 }
 
+/*
 export enum PoolFormType {
   Provide = 0,
   Withdraw = 1,
   Stake = 2,
   Unstake = 3,
 }
-
 export enum AstroFormType {
   Stake = 0,
   Unstake = 1,
@@ -134,7 +134,7 @@ export enum ProvideFormMode {
   Single = 0,
   Double = 1,
 }
-
+*/
 export interface FundListItem {
   contract: string;
   owner: string;
