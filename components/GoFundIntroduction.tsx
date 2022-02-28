@@ -33,7 +33,10 @@ const GoFundIntroduction = () => {
             help them achieve their goals. Unlike typical crowd funding platforms, we are capital
             preserving. This means you can deposit your funds here, and the earnings they get
             (currently via Anchor Earn) will be given to the person who set up the fund.{' '}
-            <Link color="#83B3FD" href="https://example.com/docs/go/here" isExternal={true}>
+            <Link
+              color="#83B3FD"
+              href="https://www.loop.markets/what-is-go-fund-ust/"
+              isExternal={true}>
               Learn More
             </Link>{' '}
             to learn more about GoFund US(T).
