@@ -97,7 +97,7 @@ const Navbar: FC = () => {
               <TerraWallet />
               <HStack spacing="12" align="flex-start" display="none">
                 <Link
-                  href="https://example.com/terms-and-conditions"
+                  href="/tc"
                   textTransform="uppercase"
                   color="white"
                   opacity="0.7"
