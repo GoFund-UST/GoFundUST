@@ -13,6 +13,7 @@
     "build",
     "node_modules",
     "coverage",
+    "lib",
     "config",
     "src/**/*.test.ts",
     "src/**/*.test.tsx",

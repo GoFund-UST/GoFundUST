@@ -1,74 +1,86 @@
-import React, { FC } from "react";
-import { Box, Flex, Text, HStack, VStack } from "@chakra-ui/react";
-import { fromTerraAmount } from "@arthuryeti/terra";
+import {fromTerraAmount, useAddress} from '@arthuryeti/terra';
+import {Flex, Text} from '@chakra-ui/react';
+import {CrowdFundConfigResponse, CrowdFundStateResponse} from 'modules/crowdfund';
+import {CrowdFundDepositPoolBalanceResponse} from 'modules/crowdfund/hooks/useCrowdDepositPool';
+import React, {FC} from 'react';
 
-import { CrowdFundStateResponse } from "modules/crowdfund";
-import {
-  CrowdFundDepositPoolBalanceResponse,
-  CrowdFundDepositPoolTokenInfoResponse,
-} from "modules/crowdfund/hooks/useCrowdDepositPool";
-
+const TWO_DIGIT_PRECISION_FORMAT = '0,0.00a';
+const FOUR_DIGIT_PRECISION_FORMAT = '0,0.0000a';
 type Props = {
-  token: string;
-  money_market: string;
+  detail: CrowdFundConfigResponse;
   claimable: CrowdFundStateResponse;
-  description?: string;
-  token_details: CrowdFundDepositPoolTokenInfoResponse;
   account_details: CrowdFundDepositPoolBalanceResponse;
 };
-const FundAmountCard: FC<Props> = ({
-  description,
-  claimable,
-  token_details,
-  account_details,
-}) => {
-  // const { getIcon, getSymbol } = useTokenInfo();
-  const tokenName = token_details.name;
-  const tokenSymbol = token_details.symbol;
-  const _fraction = token_details.decimals;
 
-  const amount = fromTerraAmount(claimable.pool_value, "0,0.00a");
-  const earnedAmount = fromTerraAmount(claimable.earned, "0,0.0000a");
-  const accountAmount = fromTerraAmount(account_details.balance, "0,0.00a");
-  // TODO get query balance.
-  // TODO get exchange rate from money market
+const getDescripton = (detail: CrowdFundConfigResponse) => {
+  if (!detail.pool_description) {
+    return <></>;
+  }
   return (
-    <Box
-      borderWidth="1px"
-      borderRadius="xl"
-      borderColor="white.200"
-      bg="white.100"
-      px="4"
-      py="3"
-      lineHeight="1.3"
-    >
-      <Flex justify="space-between" align="center">
-        <Box>
-          <VStack>
-            <HStack spacing="4">
-              <Box>{tokenSymbol}</Box>
-              <Box>
-                <Text fontSize="2xl" color="white">
-                  {tokenName}
-                </Text>
-                {description && <Text variant="light">{description}</Text>}
-              </Box>
-            </HStack>
-            <Box fontWeight="500" textAlign="left">
-              <Text fontSize="xl" color="white">
-                Amount in Pool {amount}
-              </Text>
-              <Text fontSize="xl" color="white">
-                Total UST generated {earnedAmount}
-              </Text>
-              <Text fontSize="xl" color="white">
-                Your amount {accountAmount}
-              </Text>
-            </Box>
-          </VStack>
-        </Box>
-      </Flex>
-    </Box>
+    <>
+      {' '}
+      <Text variant="content" fontSize="3xl">
+        Description
+      </Text>
+      <Text variant="cardDescription" fontSize="xl">
+        {detail.pool_description}
+      </Text>
+    </>
+  );
+};
+
+const FundAmountCard: FC<Props> = ({detail, claimable, account_details}) => {
+  const address = useAddress();
+  const amount = fromTerraAmount(claimable.pool_value, TWO_DIGIT_PRECISION_FORMAT);
+  const earnedAmount = fromTerraAmount(claimable.earned, FOUR_DIGIT_PRECISION_FORMAT);
+  const claimableAmount = fromTerraAmount(claimable.claimable, FOUR_DIGIT_PRECISION_FORMAT);
+  const accountAmount = fromTerraAmount(account_details.balance, TWO_DIGIT_PRECISION_FORMAT);
+  const isBeneficiary = detail?.beneficiary === address;
+  const isFeeCollector = detail?.fee_collector === address;
+
+  return (
+    <Flex flexDir="column">
+      <Text variant="content" fontSize="3xl">
+        Pool Name
+      </Text>
+      <Text variant="cardDescription" fontSize="xl">
+        {detail.pool_name}
+      </Text>
+      <Text mt="4" variant="content" fontSize="3xl">
+        Title
+      </Text>
+      <Text variant="cardDescription" fontSize="xl">
+        {detail.pool_title}
+      </Text>
+      {getDescripton(detail)}
+      <Text mt="4" variant="content" fontSize="3xl">
+        Beneficiary
+        {isBeneficiary ? <>{` (It's you!)`}</> : <></>}
+      </Text>
+      <Text variant="cardDescription" fontSize="xl">
+        {detail.beneficiary}
+      </Text>
+
+      <Text mt="4" variant="content" fontSize="3xl">
+        Pool Details
+      </Text>
+      <Text variant="cardDescription" fontSize="xl">
+        <span>Total Amount </span>
+        <span>${amount} </span>
+        <span>/ </span>
+        <span>Generated </span>
+        <span>${earnedAmount} </span>
+        <span>/ </span>
+        <span>Your Amount </span>
+        <span>${accountAmount} </span>
+      </Text>
+      {(isBeneficiary || isFeeCollector) && (
+        <Text variant="cardDescription" fontSize="xl">
+          <span>Claimable </span>
+          <span>${claimableAmount}</span>
+        </Text>
+      )}
+    </Flex>
   );
 };
 

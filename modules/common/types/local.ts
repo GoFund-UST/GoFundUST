@@ -1,4 +1,4 @@
-import { PairResponse } from "./astroswap";
+//import {PairResponse} from './astroswap';
 
 export type Token = {
   protocol: string;
@@ -10,20 +10,18 @@ export type Token = {
 export type Tokens = {
   [token: string]: Token;
 };
-
+/*
 export type Routes = {
   [from: string]: {
     [to: string]: PairResponse;
   };
 };
-
+*/
 export type Data = {
   mainnet: {
     tokens: any;
-    pairs: any;
   };
   testnet: {
     tokens: any;
-    pairs: any;
   };
-} & { [key: string]: any };
+} & {[key: string]: any};

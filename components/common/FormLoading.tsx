@@ -3,8 +3,8 @@ import { Box, Flex, Text, Heading, Link } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Lottie from "react-lottie";
 
-import { truncate } from "libs/text";
-import * as animationData from "libs/animations/loop.json";
+import { truncate } from "utils/text";
+import * as animationData from "utils/animations/loop.json";
 import useFinder from "hooks/useFinder";
 import Card from "components/Card";
 

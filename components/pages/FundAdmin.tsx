@@ -1,91 +1,61 @@
-import React, { FC } from "react";
-import { Box, Flex, Heading } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import Lottie from "react-lottie";
+import {Box, Flex, Text} from '@chakra-ui/react';
+import PageLoading from 'components/common/PageLoading';
 
-import * as animationData from "libs/animations/66643-waitwhite.json";
-
-import Card from "components/Card";
-import FundFailed from "components/FundFailed";
-import { useCrowdFund, useCrowdFundState } from "modules/crowdfund";
-import FundAdminDetail from "components/FundAdminDetail";
-import { useAddress } from "@arthuryeti/terra";
-import FundAdminDenied from "components/FundAdminDenied";
-
-const FundAdmin: FC = () => {
+import FundFailed from 'components/FundFailed';
+import {useCrowdFund} from 'modules/crowdfund';
+import {useRouter} from 'next/router';
+import React, {FC} from 'react';
+import FundAdminDetail from 'components/FundAdminDetail';
+import {useFactoryConfig} from 'modules/crowdfund/hooks/useFactoryConfig';
+import {useContracts} from 'modules/common';
+type Props = {};
+const FundAdmin: FC<Props> = () => {
   const router = useRouter();
   const address = router.query.address as string;
-  const { isLoading, data } = useCrowdFund(address);
-  const cwState = useCrowdFundState(address);
-  const userAddress = useAddress();
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
+  const {isLoading, data} = useCrowdFund(address);
+  const factoryConfig = useFactoryConfig();
+  const {fundFactory} = useContracts();
   const handleClose = () => {
-    router.push("/");
+    router.push('/');
   };
 
   const renderFund = () => {
     if (!isLoading && data == null) {
       return <FundFailed onCloseClick={handleClose} />;
     }
-    if (!cwState.isLoading && cwState.data == null) {
-      return <FundFailed onCloseClick={handleClose} />;
-    }
 
-    if (
-      data.beneficiary !== userAddress &&
-      data.fee_collector !== userAddress
-    ) {
-      return <FundAdminDenied onCloseClick={handleClose} />;
-    } else {
-      return (
-        <FundAdminDetail
-          detail={data}
-          claimable={cwState.data}
-          address={address}
-          onCloseClick={handleClose}
-        />
-      );
-    }
-  };
-
-  if (isLoading || cwState.isLoading) {
     return (
-      <Box m="0 auto" pt="12">
-        <Flex direction="column" gridGap="8" color="white">
-          <Lottie
-            options={defaultOptions}
-            height={400}
-            width={400}
-            isStopped={false}
-            isPaused={false}
-          />
+      <FundAdminDetail
+        detail={data}
+        factory={fundFactory}
+        address={address}
+        onCloseClick={handleClose}
+      />
+    );
+  };
+  if (factoryConfig.isLoading || factoryConfig.data == null || isLoading) {
+    return <PageLoading />;
+  }
+  if (factoryConfig.data.nft_contract) {
+    // eslint-disable-next-line no-console
+    // console.log('FundAdmin nft=', factoryConfig.data.nft_contract);
 
-          <Card>
-            <Heading fontSize="xl" fontWeight="500" textAlign="center">
-              Loading...
-            </Heading>
-          </Card>
+    return (
+      <Box>
+        <Flex flex="1" flexWrap={'wrap'} justifyContent="center">
+          <Box>{renderFund()}</Box>
+        </Flex>
+      </Box>
+    );
+  } else {
+    return (
+      <Box>
+        <Flex flex="1" flexWrap={'wrap'} justifyContent="center">
+          <Text color="red">Nothing to configure. you&apos;re all set</Text>
         </Flex>
       </Box>
     );
   }
-
-  return (
-    <Box m="0 auto" pt="12">
-      <Flex gridGap="8">
-        <Box w="container.sm">{renderFund()}</Box>
-      </Flex>
-    </Box>
-  );
 };
 
 export default FundAdmin;

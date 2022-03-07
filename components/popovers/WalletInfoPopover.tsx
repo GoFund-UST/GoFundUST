@@ -17,7 +17,7 @@ import {
 import { fromTerraAmount, useAddress, useBalance } from "@arthuryeti/terra";
 import { useWallet, useConnectedWallet } from "@terra-money/wallet-provider";
 
-import { truncate } from "libs/text";
+import { truncate } from "utils/text";
 import { useTokenInfo } from "modules/common";
 import useFinder from "hooks/useFinder";
 

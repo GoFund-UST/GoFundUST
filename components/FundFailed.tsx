@@ -1,10 +1,10 @@
-import React, { FC } from "react";
-import { Box, Flex, HStack, Text, IconButton, Link } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import React, {FC} from 'react';
+import {Box, Flex, HStack, Text, IconButton, Link} from '@chakra-ui/react';
+import {motion} from 'framer-motion';
 
-import Card from "components/Card";
-import CloseModalIcon from "components/icons/CloseModalIcon";
-import FailedIcon from "components/icons/FailedIcon";
+import Card from 'components/Card';
+import CloseModalIcon from 'components/icons/CloseModalIcon';
+import FailedIcon from 'components/icons/FailedIcon';
 
 type Props = {
   onCloseClick: () => void;
@@ -12,15 +12,14 @@ type Props = {
 
 const MotionBox = motion(Box);
 
-const FundFailed: FC<Props> = ({ onCloseClick }) => {
+const FundFailed: FC<Props> = ({onCloseClick}) => {
   return (
     <MotionBox
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
+      initial={{opacity: 0, scale: 0.8}}
+      animate={{opacity: 1, scale: 1}}
       w="470px"
       m="0 auto"
-      mt="10"
-    >
+      mt="10">
       <Card>
         <Flex justify="space-between" align="center" mb="6">
           <HStack>
@@ -40,12 +39,11 @@ const FundFailed: FC<Props> = ({ onCloseClick }) => {
         </Flex>
 
         <Text variant="light">
-          Learn more about Crowd Funds{" "}
+          Learn more about Crowd Funds{' '}
           <Link
-            href="https://example.com/what-is-a-crowd-fund"
+            href="https://www.loop.markets/what-is-go-fund-ust/"
             isExternal={true}
-            color="brand.purple"
-          >
+            color="brand.purple">
             <a>in this article</a>
           </Link>
         </Text>

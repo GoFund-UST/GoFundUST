@@ -1,8 +1,7 @@
-import React from "react";
-import { Box } from "@chakra-ui/react";
+import React from 'react';
+import {Box} from '@chakra-ui/react';
 
-import Navbar from "components/Navbar";
-import DisclaimerContent from "components/DisclaimerContent";
+import DisclaimerContent from 'components/DisclaimerContent';
 
 const Disclaimer = () => {
   return (

@@ -1,0 +1,43 @@
+{
+  "name": "@gofundust/components",
+  "version": "0.1.41",
+  "description": "GoFundUst components to use in your react project.",
+  "private": false,
+  "main": "./dist/cjs/lib/src/index.js",
+  "module": "./dist/esm/lib/src/index.js",
+  "types": "./dist/esm/lib/src/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -drf dist && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "prepublishOnly": "npm run build && npm version patch"
+  },
+  "dependencies": {
+    "@arthuryeti/terra": "^1.5.1",
+    "@chakra-ui/icons": "^1.1.1",
+    "@chakra-ui/react": "^1.7.3",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@terra-money/terra.js": "^3.0.1",
+    "@terra-money/wallet-provider": "^3.3.0",
+    "framer-motion": "^6.2.6",
+    "bignumber.js": "^9.0.2",
+    "numeral": "^2.0.6",
+    "react-hook-form": "^7.21.2",
+    "react-query": "^3.34.2"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "typescript": "^4.5.5",
+    "tsconfig-paths": "^3.12.0"
+  },
+  "files": [
+    "/dist"
+  ]
+}

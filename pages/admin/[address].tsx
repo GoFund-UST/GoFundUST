@@ -1,10 +1,10 @@
-import React from "react";
-import { NextPage } from "next";
-import Head from "next/head";
-import { Flex } from "@chakra-ui/react";
+import {Container} from '@chakra-ui/react';
+import Disclaimer from 'components/Disclaimer';
 
-import Disclaimer from "components/Disclaimer";
-import FundAdmin from "components/pages/FundAdmin";
+import {NextPage} from 'next';
+import Head from 'next/head';
+import React from 'react';
+import FundAdmin from 'components/pages/FundAdmin';
 
 const FundAdminPage: NextPage = () => {
   return (
@@ -12,10 +12,10 @@ const FundAdminPage: NextPage = () => {
       <Head>
         <title>Fund Admin</title>
       </Head>
-      <Flex>
+      <Container my="12" px={['6', null, '12']} position="relative" maxWidth="container.xl">
         <FundAdmin />
-      </Flex>
-      <Disclaimer />
+        <Disclaimer />
+      </Container>
     </>
   );
 };

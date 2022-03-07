@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "author": "PFC / Originally forked from itey.arthur@gmail.com",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -24,11 +25,11 @@
     "@terra-money/wallet-provider": "^3.3.0",
     "bignumber.js": "^9.0.2",
     "dayjs": "^1.10.7",
-    "follow-redirects": ">=1.14.7",
+    "follow-redirects": ">=1.14.8",
     "framer-motion": "^5.4.5",
     "graphql-request": "^3.7.0",
     "lodash": "^4.17.21",
-    "next": "^12.0.9",
+    "next": "^12.1.0",
     "node-fetch": ">=2.6.7",
     "nanoid": ">=3.1.31",
     "numeral": "^2.0.6",
@@ -61,8 +62,6 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.1.2",
     "prettier": "^2.5.1",
-    "tslint": "^6.1.3",
-    "tslint-react": "^5.0.0",
     "typescript": "^4.5.3"
   }
 }
