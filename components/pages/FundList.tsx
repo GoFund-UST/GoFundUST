@@ -21,7 +21,17 @@ const FundList: React.FC<{
 
   return (
     <Box>
+
       <Flex flex="1" flexWrap={'wrap'}>
+          <div style={{padding: 8, width:'100%'}} >
+          <Card p={['12', null, null, '12']} w={'100%'} bg='white' color='red'>
+              <Box>
+                  <Text size='lg'><b>Warning</b></Text>
+                  <Text> Anyone can create a fund claiming they are whomever they want to be.</Text>
+                  <Text> Please use links provided by reputable people on their own pages, and don&apos;t just blindly ape into any you find here</Text>
+              </Box>
+          </Card>
+          </div>
         {data?.funds?.map((fund, index) => {
           return (
             <div style={{width: '50%', maxWidth: '50%'}} key={index}>
