@@ -22,7 +22,7 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@terra-money/terra.js": "^3.0.1",
-    "@terra-money/wallet-provider": "^3.3.0",
+    "@terra-money/wallet-provider": "^3.8.1",
     "bignumber.js": "^9.0.2",
     "dayjs": "^1.10.7",
     "follow-redirects": ">=1.14.8",

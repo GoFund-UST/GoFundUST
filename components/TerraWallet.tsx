@@ -1,20 +1,20 @@
 import React, { FC } from "react";
 import { detect } from "detect-browser";
-import { Extension } from "@terra-money/terra.js";
+//import { Extension } from "@terra-money/terra.js";
 import {
   useWallet,
   WalletStatus,
-  useInstallChromeExtension,
-  useConnectedWallet,
+ // useInstallChromeExtension,
+ // useConnectedWallet,
 } from "@terra-money/wallet-provider";
 
 import WalletDisclaimerPopover from "components/popovers/WalletDisclaimerPopover";
 
-import { Link, Text, HStack, chakra, useDisclosure } from "@chakra-ui/react";
+import { Link, Text, HStack,  useDisclosure } from "@chakra-ui/react";
 
 import ConnectWalletModal from "components/modals/ConnectWalletModal";
 import WalletInfoPopover from "components/popovers/WalletInfoPopover";
-import TerraIcon from "components/icons/TerraIcon";
+// import TerraIcon from "components/icons/TerraIcon";
 import ChromeIcon from "components/icons/ChromeIcon";
 
 const TerraWallet: FC = () => {
@@ -24,7 +24,7 @@ const TerraWallet: FC = () => {
   // const terraStation = new Extension();
   // const installExtension = useInstallChromeExtension();
 
-  if (!["chrome", "opera", "edge", "edge-chromium"].includes(browser?.name)) {
+  if (!["chrome", "opera", "edge", "edge-chromium","firefox"].includes(browser?.name)) {
     return (
       <Link
         href="https://www.google.com/chrome/"
