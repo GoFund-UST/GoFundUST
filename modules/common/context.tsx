@@ -23,6 +23,8 @@ export const GoFundUstAppProvider: FC<Props> = ({children, data}) => {
   } = useWallet();
 
   const tokens = useMemo(() => {
+    // eslint-disable-next-line no-console
+    console.log('context',data,name)
     return data[name].tokens;
   }, [name, data]);
 

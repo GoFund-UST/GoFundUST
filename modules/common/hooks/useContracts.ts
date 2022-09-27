@@ -8,11 +8,15 @@ type Contracts = {
 };
 
 type Networks = {
+  classic: Contracts;
   mainnet: Contracts;
   testnet: Contracts;
 };
 
 const defaultContracts: Networks = {
+  classic: {
+    fundFactory: 'terra1u3uxd530nd62gjerwlsth08x776fej3eeer3vd',
+  },
   mainnet: {
     fundFactory: 'terra1u3uxd530nd62gjerwlsth08x776fej3eeer3vd',
   },

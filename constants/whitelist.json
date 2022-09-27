@@ -19,9 +19,29 @@
         "token": "uusd",
         "icon": "https://assets.terra.money/icon/60/UST.png"
       }
-
     }
-
+  },
+  "classic": {
+    "tokens": {
+      "terra1u3uxd530nd62gjerwlsth08x776fej3eeer3vd": {
+        "protocol": "Go Fund US(T)",
+        "symbol": "GoFundUST",
+        "token": "terra1w4n7szdxs5gd0cj0e6ns5d2hqpjxu70yptqk90",
+        "icon": "/tokens/gofund.png"
+      },
+      "uluna": {
+        "protocol": "Native",
+        "symbol": "LUNA",
+        "token": "uluna",
+        "icon": "https://assets.terra.money/icon/60/Luna.png"
+      },
+      "uusd": {
+        "protocol": "Native",
+        "symbol": "UST",
+        "token": "uusd",
+        "icon": "https://assets.terra.money/icon/60/UST.png"
+      }
+    }
   },
   "testnet": {
     "tokens": {
@@ -43,9 +63,6 @@
         "token": "uusd",
         "icon": "https://assets.terra.money/icon/60/UST.png"
       }
-
-
     }
-
   }
 }

@@ -18,7 +18,7 @@ spec:
         app: "gofund-app"
     spec:
       containers:
-        - image: gofundust/app:1.1
+        - image: gofundust/app:1.2
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
